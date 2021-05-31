@@ -5,8 +5,12 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public GameObject _bombPref;
+    public GameObject _bulletPref;
     public Transform _bombStartPos;
-    public float _speed = 3f;
+    public Transform _bulletStartPos;
+
+    public float _rotationSpeed = 3f;
+    public float _movingSpeed = 3f;
     public float _explosion_timer = 1f;
 
     private Vector3 _direction;
@@ -32,14 +36,16 @@ public class Player : MonoBehaviour
 
         Debug.Log($"FIRE 1 = {Input.GetAxis("Fire1")}");
 
-        var speed = _direction * _speed * Time.deltaTime;
-        transform.Translate(speed);
+        transform.Translate(_direction * _movingSpeed * Time.deltaTime);
+
+        
 
 
         // 2 способа обработки кнопки огня
-
-        if (Input.GetMouseButtonDown(0)) CreateBomb();
+        if (Input.GetMouseButtonDown(1)) CreateBomb();
         //if (Input.GetAxis("Fire1") > 0) CreateBomb();
+
+        if (Input.GetMouseButtonDown(0)) CreateBullet();
 
     }
 
@@ -56,6 +62,13 @@ public class Player : MonoBehaviour
         var bomb = Instantiate(_bombPref, _bombStartPos.position, Quaternion.identity).GetComponent<Bomb>();
         bomb.Init(_explosion_timer);
 
+    }
+
+    private void CreateBullet()
+    {
+        Debug.Log("Create Bullet!");
+        var bullet = Instantiate(_bulletPref, _bulletStartPos.position, Quaternion.identity).GetComponent<Bullet>();
+        //bullet.Init(_enemyPos);
     }
 
     public void TakeDamage()
