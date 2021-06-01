@@ -8,7 +8,7 @@ public class Button : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("OnTriggerEnter() Called!");
+        //Debug.Log("OnTriggerEnter() Called!");
         if (other.CompareTag("Player"))
         {
             _door.doorIsOpening = true;

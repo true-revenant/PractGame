@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
     private void Awake()
     {
         //gameObject.SetActive(false);
-        Debug.Log($"Enemy Tag = {gameObject.tag}");
+        //Debug.Log($"Enemy Tag = {gameObject.tag}");
 
         audioSource = GetComponent<AudioSource>();
     }
