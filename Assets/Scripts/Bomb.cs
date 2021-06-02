@@ -10,7 +10,7 @@ public class Bomb : MonoBehaviour
         var enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach(var e in enemies)
         {
-            e.GetComponent<Enemy>().TakeDamage();
+            e.GetComponent<EnemyPatrol>().TakeDamage();
         }
     }
 

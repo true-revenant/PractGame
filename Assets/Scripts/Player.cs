@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     public float _explosion_timer = 1f;
 
     private Vector3 _direction;
+    private int health = 100;
 
     private void Awake()
     {
@@ -27,8 +28,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log($"ROTATION = {transform.rotation}");
-        Debug.Log($"LOCAL ROTATION = {transform.localRotation}");
+        //Debug.Log($"ROTATION = {transform.rotation}");
+        //Debug.Log($"LOCAL ROTATION = {transform.localRotation}");
 
         //Debug.Log("Update()");
 
@@ -77,6 +78,20 @@ public class Player : MonoBehaviour
 
     public void TakeDamage()
     {
-        Debug.Log($"{name} : OUCH!!!");
+        Debug.Log($"{name} : OUCH!!! -5HP");
+        health -= 5;
+
+        if (health <= 0) Die();
+    }
+
+    public void TakeHeal()
+    {
+        health += 15;
+        Debug.Log($"{name} : HEALED!!! +15HP");
+    }
+
+    private void Die()
+    {
+        Debug.Log($"{name} : DEAD!!!");
     }
 }
