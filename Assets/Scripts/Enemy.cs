@@ -2,15 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : LiveObj
 {
-    private AudioSource audioSource;
+    private Color deathColor;
+    private MeshRenderer meshRenderer;
+
     private void Awake()
     {
-        //gameObject.SetActive(false);
-        //Debug.Log($"Enemy Tag = {gameObject.tag}");
-
-        audioSource = GetComponent<AudioSource>();
+        deathColor = Color.white;
+        maxHP = 50;
+        currentHP = maxHP;
+        IsAlive = true;
+        // получаем меш головы
+        meshRenderer = transform.GetChild(0).GetComponent<MeshRenderer>();
     }
 
     // Start is called before the first frame update
@@ -23,14 +27,28 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    private void Update()
-    {
-
-    }
-
-    public void TakeDamage()
+    public override void TakeDamage(int damage)
     {
         Debug.Log($"{name} : OUCH!!!");
+        currentHP -= damage;
+        if (currentHP <= 0 && IsAlive)
+        {
+            StartCoroutine(DeathAnimation());
+        }
+    }
+
+    IEnumerator DeathAnimation()
+    {
+        // проверка изменился ли цвет
+        while (meshRenderer.material.color != deathColor)
+        {
+            // плавный переход от одного цвета в другой
+            meshRenderer.material.color = Color.Lerp(meshRenderer.material.color, deathColor, 0.1f);
+            // ожидание след выполнения функции Update()
+            yield return null;
+        }
+        // если изменился, то не заходим больше в цикл, ожидаем 3 секунды и уничтожаем объект
+        yield return new WaitForSeconds(3);
+        Destroy(gameObject);
     }
 }

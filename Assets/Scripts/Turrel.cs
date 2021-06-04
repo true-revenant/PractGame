@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Timers;
 
-public class Turrel : MonoBehaviour
+public class Turrel : LiveObj
 {
-    Timer timer;
-    //private bool shotMade = false;
+    private float _rotationDirectionSign = 1;
 
     [SerializeField] private Transform _playerPos;
     [SerializeField] private float _minDistance = 3f;
@@ -15,21 +14,11 @@ public class Turrel : MonoBehaviour
     public GameObject _bulletPref;
     public Transform _bulletStartPos;
 
-    private float _rotationDirectionSign = 1;
-
     private void Awake()
     {
-        timer = new Timer(1000);
-        timer.Elapsed += Timer_Elapsed;
-        
-    }
-
-    private void Timer_Elapsed(object sender, ElapsedEventArgs e) {}
-
-    // Start is called before the first frame update
-    void Start() 
-    {
-        timer.Start();
+        maxHP = 50;
+        currentHP = maxHP;
+        IsAlive = true;
     }
 
     // Update is called once per frame
@@ -42,11 +31,9 @@ public class Turrel : MonoBehaviour
             Vector3 newDir = Vector3.RotateTowards(transform.forward, relative, _rotationSpeed * Time.deltaTime, 0f);
             var newRotation = Quaternion.LookRotation(newDir);
 
-            //Debug.Log($"CURR ANGLE = {Quaternion.Angle(transform.rotation, newRotation)}");
+            // Если туррель смотрит на игрока, то стреляет
             if (Quaternion.Angle(transform.rotation, newRotation) == 0)
             {
-                Debug.Log($"TURREL LOOK AT PLAYER!");
-
                 CreateBullet();
             }
 
@@ -73,9 +60,23 @@ public class Turrel : MonoBehaviour
 
     private void CreateBullet()
     {
-        Debug.Log("Create Bullet!");
         //Instantiate(_bulletPref, _bulletStartPos.position, transform.rotation);
         var rBody = Instantiate(_bulletPref, _bulletStartPos.position, Quaternion.identity).GetComponent<Rigidbody>();
         rBody.velocity = _bulletStartPos.forward * 15f;
     }
+
+    public override void TakeDamage(int damage)
+    {
+        Debug.Log($"{name} : Took Damage!!!");
+        currentHP -= damage;
+        if (currentHP <= 0 && IsAlive)
+        {
+            //StartCoroutine(DeathAnimation());
+        }
+    }
+
+    //IEnumerator DeathAnimation()
+    //{
+
+    //}
 }

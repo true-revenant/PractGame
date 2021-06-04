@@ -7,6 +7,9 @@ TagManager:
   - Enemy
   - Boss
   - Turret
+  - EnemyPatrol
+  - Floor
+  - Items
   layers:
   - Default
   - TransparentFX
@@ -14,7 +17,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Explosionable
   - 
   - 
   - 

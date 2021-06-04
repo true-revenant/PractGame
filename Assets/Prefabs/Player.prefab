@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6978986214335443706}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.010358751, y: 0.84, z: 0.186}
+  m_LocalPosition: {x: -0.010358751, y: 0.84, z: 0.317}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7318238661112797824}
@@ -868,10 +868,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.36192912
-  m_Height: 1.71
+  m_Radius: 0.24
+  m_Height: 1.59
   m_Direction: 1
-  m_Center: {x: 0.0067970157, y: 0.87, z: 0.022056043}
+  m_Center: {x: 0.0067970157, y: 0.87, z: -0.01}
 --- !u!54 &34161545097086075
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -881,11 +881,11 @@ Rigidbody:
   m_GameObject: {fileID: 7318238661112797825}
   serializedVersion: 2
   m_Mass: 60
-  m_Drag: 1
-  m_AngularDrag: 0.05
+  m_Drag: 2
+  m_AngularDrag: 0.1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 1
+  m_Interpolate: 2
   m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!114 &7318238661112797827
@@ -904,8 +904,11 @@ MonoBehaviour:
   _bulletPref: {fileID: 0}
   _bombStartPos: {fileID: 0}
   _bulletStartPos: {fileID: 0}
-  _speed: 3
+  _rotationSpeed: 3
+  _movingSpeed: 3
   _explosion_timer: 1
+  _force: 0
+  jumpHeightK: 0
 --- !u!1 &7318238661289426315
 GameObject:
   m_ObjectHideFlags: 0
@@ -1205,7 +1208,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8110049894794453681}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.010358751, y: 0.84, z: 0.181}
+  m_LocalPosition: {x: -0.010358751, y: 0.84, z: 0.321}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7318238661112797824}

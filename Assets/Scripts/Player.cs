@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : LiveObj
 {
     public GameObject _bombPref;
     public GameObject _bulletPref;
@@ -11,13 +11,17 @@ public class Player : MonoBehaviour
 
     public float _rotationSpeed = 3f;
     public float _movingSpeed = 3f;
-    public float _explosion_timer = 1f;
+    public float _force;
+    public float jumpHeightK;
 
     private Vector3 _direction;
-    private int health = 100;
+    private bool isGround = true;
 
     private void Awake()
     {
+        IsAlive = true;
+        maxHP = 100;
+        currentHP = maxHP;
         Debug.Log("Awake()");
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -28,65 +32,75 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log($"ROTATION = {transform.rotation}");
-        //Debug.Log($"LOCAL ROTATION = {transform.localRotation}");
-
-        //Debug.Log("Update()");
-
         _direction.x = Input.GetAxis("Horizontal");
         _direction.z = Input.GetAxis("Vertical");
-
-        //_direction.z = -_direction.z;
-        //_direction.x = -_direction.x;
-
-        //Debug.Log($"FIRE 1 = {Input.GetAxis("Fire1")}");
 
         transform.Translate(_direction * _movingSpeed * Time.deltaTime);
         transform.Rotate(Vector3.up * _rotationSpeed * Time.deltaTime * Input.GetAxis("Mouse X"));
 
-        // 2 способа обработки кнопки огня
+        // Бросок гранаты
         if (Input.GetMouseButtonDown(1)) CreateBomb();
-        //if (Input.GetAxis("Fire1") > 0) CreateBomb();
 
-        if (Input.GetMouseButtonDown(0)) CreateBullet();
+        // выстрел
+        if (Input.GetMouseButton(0)) CreateBullet();
 
+        // проверка положения перед прыжком, бросаем луч вниз длинной в высоту персонажа
+        RaycastHit raycastHit;
+        var raycast = Physics.Raycast(transform.GetChild(0).position, Vector3.down, out raycastHit, 1.5f);
+
+        isGround = raycast ? true : false;
+
+        // прыжок
+        if (Input.GetKeyDown(KeyCode.Q) && isGround)
+        {
+            Debug.Log("ПРЫЖОК!!");
+            gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * jumpHeightK, ForceMode.Impulse);
+        }
     }
-
-    private void LateUpdate()
-    {
-        //Debug.Log("LateUpdate()");
-    }
-
-    private void FixedUpdate() {}
 
     private void CreateBomb()
     {
         //Debug.Log("Create Bomb!");
-        var bomb = Instantiate(_bombPref, _bombStartPos.position, transform.rotation).GetComponent<Bomb>();
-        bomb.Init(_explosion_timer);
-
+        var rBody = Instantiate(_bombPref, _bombStartPos.position, transform.rotation).GetComponent<Rigidbody>();
+        rBody.AddForce(transform.forward * _force, ForceMode.Impulse);
+        
+        //bomb.GetComponent<Rigidbody>().AddTorque(10f * Vector3.forward);
     }
 
     private void CreateBullet()
     {
         //Debug.Log("Create Bullet!");
         //Instantiate(_bulletPref, _bulletStartPos.position, transform.rotation)
-        var rBody = Instantiate(_bulletPref, _bulletStartPos.position, Quaternion.identity).GetComponent<Rigidbody>();
-        rBody.velocity = _bulletStartPos.forward * 15f;
-        //bullet.Init(_enemyPos);
+        
+        //var rBody = Instantiate(_bulletPref, _bulletStartPos.position, Quaternion.identity).GetComponent<Rigidbody>();
+        //rBody.velocity = _bulletStartPos.forward * 25f;
+        
+        
+        
+        
+        RaycastHit hit;
+        var raycast = Physics.Raycast(_bulletStartPos.position, transform.forward, out hit, Mathf.Infinity);
+        
+        if (raycast)
+        {
+            Debug.Log($"Попали в {hit.collider.gameObject.tag}");
+            if (hit.collider.gameObject.CompareTag("Enemy") || hit.collider.gameObject.CompareTag("EnemyPatrol"))
+                hit.collider.gameObject.GetComponent<LiveObj>().TakeDamage(50);
+        }
     }
 
-    public void TakeDamage()
+    public override void TakeDamage(int damage)
     {
-        Debug.Log($"{name} : OUCH!!! -5HP");
-        health -= 5;
+        Debug.Log($"{name} : - {damage} HP!");
+        currentHP -= damage;
 
-        if (health <= 0) Die();
+        if (currentHP <= 0) Die();
     }
 
     public void TakeHeal()
     {
-        health += 15;
+        currentHP += 15;
+        if (currentHP >= maxHP) currentHP = maxHP;
         Debug.Log($"{name} : HEALED!!! +15HP");
     }
 
