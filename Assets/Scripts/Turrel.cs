@@ -16,7 +16,7 @@ public class Turrel : LiveObj
 
     private void Awake()
     {
-        maxHP = 50;
+        maxHP = 100;
         currentHP = maxHP;
         IsAlive = true;
     }
@@ -24,29 +24,25 @@ public class Turrel : LiveObj
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(transform.position, _playerPos.position) < _minDistance)
+        if (IsAlive)
         {
-            Vector3 relative = _playerPos.position - transform.position;
-
-            Vector3 newDir = Vector3.RotateTowards(transform.forward, relative, _rotationSpeed * Time.deltaTime, 0f);
-            var newRotation = Quaternion.LookRotation(newDir);
-
-            // Если туррель смотрит на игрока, то стреляет
-            if (Quaternion.Angle(transform.rotation, newRotation) == 0)
+            if (Vector3.Distance(transform.position, _playerPos.position) < _minDistance)
             {
-                CreateBullet();
+                Vector3 relative = _playerPos.position - transform.position;
+
+                Vector3 newDir = Vector3.RotateTowards(transform.forward, relative, _rotationSpeed * Time.deltaTime, 0f);
+                var newRotation = Quaternion.LookRotation(newDir);
+
+                // Если туррель смотрит на игрока, то стреляет
+                if (Quaternion.Angle(transform.rotation, newRotation) == 0)
+                {
+                    CreateBullet();
+                }
+
+                transform.rotation = newRotation;
             }
-
-            transform.rotation = newRotation;
-
-            //if (!shotMade)
-            //{
-            //    CreateBullet();
-            //    shotMade = true;
-            //}
-
+            else InititalRotation();
         }
-        else InititalRotation();
     }
 
     private void InititalRotation()
@@ -67,16 +63,19 @@ public class Turrel : LiveObj
 
     public override void TakeDamage(int damage)
     {
-        Debug.Log($"{name} : Took Damage!!!");
-        currentHP -= damage;
-        if (currentHP <= 0 && IsAlive)
-        {
-            //StartCoroutine(DeathAnimation());
-        }
     }
 
-    //IEnumerator DeathAnimation()
-    //{
+    public override void DeadByExplosion()
+    {
+        StartCoroutine(DeathAnimation());
+    }
 
-    //}
+    IEnumerator DeathAnimation()
+    {
+        IsAlive = false;
+        GetComponent<Rigidbody>().freezeRotation = false;
+        GetComponent<Rigidbody>().AddExplosionForce(600f, transform.position, 5f, 600f, ForceMode.Impulse);
+        yield return new WaitForSeconds(2);
+        Destroy(gameObject);
+    }
 }

@@ -10,12 +10,6 @@ public class Bomb : MonoBehaviour
         Invoke("Explosion", 3f);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //transform.Translate(transform.forward * Time.deltaTime * 5f);
-    }
-
     private void Explosion()
     {
         Debug.Log("BOOM!!");
@@ -27,7 +21,14 @@ public class Bomb : MonoBehaviour
                 col.GetComponent<Rigidbody>().isKinematic = false;
                 col.GetComponent<Rigidbody>().freezeRotation = false;
                 col.GetComponent<Rigidbody>().AddExplosionForce(600f, transform.position, 5f, 600f, ForceMode.Impulse);
-                //col.GetComponent<Rigidbody>().isKinematic = true;
+                col.GetComponent<LiveObj>().DeadByExplosion();
+            }
+            if (col.gameObject.tag == "Turret")
+            {
+                col.GetComponent<LiveObj>().DeadByExplosion();
+            }
+            if (col.gameObject.tag == "Boss")
+            {
                 col.GetComponent<LiveObj>().TakeDamage(50);
             }
         }

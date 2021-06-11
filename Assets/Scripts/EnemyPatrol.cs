@@ -7,10 +7,9 @@ public class EnemyPatrol : LiveObj
 {
     [SerializeField] private Transform[] _waypoints;
 
-    private Color deathColor;
-    private MeshRenderer meshRenderer;
     private NavMeshAgent navMeshAgent;
     private int currentWaypointIndex;
+    private Animator animator;
 
     [SerializeField] private float visionRadius;
     [SerializeField] private float attackDistance;
@@ -20,13 +19,9 @@ public class EnemyPatrol : LiveObj
 
     private void Awake()
     {
-        deathColor = Color.white;
-
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.SetDestination(_waypoints[0].position);
-
-        // получаем меш головы
-        meshRenderer = transform.GetChild(0).GetComponent<MeshRenderer>();
+        animator = GetComponent<Animator>();
 
         maxHP = 50;
         currentHP = maxHP;
@@ -36,11 +31,7 @@ public class EnemyPatrol : LiveObj
     // Start is called before the first frame update
     private void Start()
     {
-        var playerGO = GameObject.Find("Player");
-        if (playerGO != null)
-        {
-            Debug.Log("Player is found!");
-        }
+        animator.SetBool("Move", true);
     }
 
     // Update is called once per frame
@@ -61,16 +52,30 @@ public class EnemyPatrol : LiveObj
                 {
                     // ≈сли враг смотрит на игрока, то стрел€ет
                     if (Quaternion.Angle(transform.rotation, newRotation) == 0)
-                        CreateBullet();
+                    {
+                        //CreateBullet();
+                        animator.SetBool("Move", false);
+                        animator.SetBool("Shoot", true);
+                    }
                 }
-                else transform.position = Vector3.MoveTowards(transform.position, playerPos.position, 2f * Time.deltaTime);
+                else
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, playerPos.position, 2f * Time.deltaTime);
+                    animator.SetBool("Move", true);
+                    animator.SetBool("Shoot", false);
+                }
+
 
                 transform.rotation = newRotation;
                 return;
             }
             // если игрок выходит из пол€ зрени€, продолжаем патрулировать
-            else Invoke("backToPatrol", 1f);
-
+            else
+            {
+                animator.SetBool("Move", false);
+                Invoke("backToPatrol", 1f);
+            }
+            
             // реализаци€ цикличности к обращению к каждому элементу массива точек перемещени€
             if (navMeshAgent.enabled && navMeshAgent.remainingDistance < navMeshAgent.stoppingDistance)
             {
@@ -83,6 +88,7 @@ public class EnemyPatrol : LiveObj
     private void backToPatrol()
     {
         navMeshAgent.enabled = true;
+        animator.SetBool("Move", true);
     }
 
     public override void TakeDamage(int damage)
@@ -102,22 +108,28 @@ public class EnemyPatrol : LiveObj
         rBody.velocity = bulletStartPos.forward * 15f;
     }
 
+    IEnumerator DeathByExplosionAnimation()
+    {
+        IsAlive = false;
+        animator.enabled = false;
+        gameObject.GetComponent<Rigidbody>().freezeRotation = false;
+        //yield return null;
+        yield return new WaitForSeconds(2);
+        Destroy(gameObject);
+    }
+
     IEnumerator DeathAnimation()
     {
         IsAlive = false;
-        // проверка изменилс€ ли цвет
-        while (meshRenderer.material.color != deathColor)
-        {
-            // плавный переход от одного цвета в другой
-            meshRenderer.material.color = Color.Lerp(meshRenderer.material.color, deathColor, 0.1f);
-            // ожидание след выполнени€ функции Update()
-            yield return null;
-        }
-        navMeshAgent.enabled = false;
-        gameObject.GetComponent<Rigidbody>().freezeRotation = false;
-        
-        // если изменилс€, то не заходим больше в цикл, ожидаем 3 секунды и уничтожаем объект
-        yield return new WaitForSeconds(3);
+        //animator.SetBool("Die", true);
+        animator.SetTrigger("Die");
+        gameObject.GetComponent<CapsuleCollider>().enabled = false;
+        yield return new WaitForSeconds(2);
         Destroy(gameObject);
+    }
+
+    public override void DeadByExplosion()
+    {
+        StartCoroutine(DeathByExplosionAnimation());
     }
 }

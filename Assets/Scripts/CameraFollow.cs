@@ -5,14 +5,13 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     public Transform target;
-    public float smoothSpeed = 0.125f;
-    public Vector3 offset;
+    public Transform cameraRotationCenter;
+    public float smoothSpeed;
 
     private void FixedUpdate()
     {
-        Vector3 desiredPos = target.position + offset;
-        Vector3 smoothedPos = Vector3.Lerp(transform.position, desiredPos, smoothSpeed);
-        transform.position = smoothedPos;
+        cameraRotationCenter.position = Vector3.Lerp(cameraRotationCenter.position, target.position, smoothSpeed);
+        cameraRotationCenter.rotation = Quaternion.Lerp(cameraRotationCenter.rotation, target.rotation, smoothSpeed);
     }
 
 }

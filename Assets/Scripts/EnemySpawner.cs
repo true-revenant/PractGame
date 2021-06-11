@@ -8,26 +8,18 @@ public class EnemySpawner : MonoBehaviour
     public int _count = 10;
     public Transform _spawnerTransform;
     public float _radius = 1f;
+
+    [SerializeField] private Transform playerPos;
+    [SerializeField] private Transform parent;
     
-    // Start is called before the first frame update
-    private void Start()
-    {
-        //SpawnEnemies();
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
-        
-    }
-
     public void Spawn()
     {
 
         for (int i = 0; i < _count; i++)
         {
             var rndDelta = Random.insideUnitSphere * _radius;
-            Instantiate(_enemyPrefab, new Vector3(_spawnerTransform.position.x + rndDelta.x, 0, _spawnerTransform.position.z + rndDelta.z), Quaternion.identity);
+            var enemy = Instantiate(_enemyPrefab, new Vector3(_spawnerTransform.position.x + rndDelta.x, 0, _spawnerTransform.position.z + rndDelta.z), Quaternion.identity, parent).GetComponent<Enemy>();
+            enemy.Init(playerPos);
         }
     }
 }

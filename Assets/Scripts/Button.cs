@@ -10,6 +10,8 @@ public class Button : MonoBehaviour
     private Vector3 pressedButtonPos;
     private bool buttonPressed = false;
 
+    public bool SideDoorButtonIsAvailable { get; set; } = false;
+
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log("OnTriggerEnter() Called!");
@@ -24,10 +26,12 @@ public class Button : MonoBehaviour
                 }
                 break;
 
-            case ButtonType.leftSectorButton:
-                break;
-
-            case ButtonType.rightSectorButton:
+            case ButtonType.sideSectorButton:
+                if (other.CompareTag("Player") && SideDoorButtonIsAvailable)
+                {
+                    _door.doorIsOpening = true;
+                    buttonPressed = true;
+                }
                 break;
         }
     }
@@ -53,6 +57,5 @@ public class Button : MonoBehaviour
 public enum ButtonType
 {
     firstButton,
-    leftSectorButton,
-    rightSectorButton
+    sideSectorButton,
 }

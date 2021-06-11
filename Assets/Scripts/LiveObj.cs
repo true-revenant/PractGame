@@ -10,4 +10,5 @@ public abstract class LiveObj : MonoBehaviour
     public bool IsAlive { get; protected set; }
 
     public abstract void TakeDamage(int damage);
+    public abstract void DeadByExplosion();
 }
