@@ -10,15 +10,18 @@ public class Boss : LiveObj
     [SerializeField] private GameObject bombPref;
     [SerializeField] private Transform bombStartPos;
     [SerializeField] private float force;
+    [SerializeField] private HealthLine healthLine;
 
     private Animator animator;
+    private NotificationManager notificationManager;
 
     private void Awake()
     {
         maxHP = 200;
         currentHP = maxHP;
         IsAlive = true;
-        animator = GetComponent<Animator>();        
+        animator = GetComponent<Animator>();
+        notificationManager = GetComponent<NotificationManager>();
     }
 
     // Update is called once per frame
@@ -47,7 +50,7 @@ public class Boss : LiveObj
                 }
                 else
                 {
-                    transform.position = Vector3.MoveTowards(transform.position, playerPos.position, 2f * Time.deltaTime);
+                    transform.position = Vector3.MoveTowards(transform.position, playerPos.position, 4f * Time.deltaTime);
                 }
 
                 transform.rotation = newRotation;
@@ -56,7 +59,6 @@ public class Boss : LiveObj
             // если игрок выходит из поля зрения, продолжаем патрулировать
             else
             {
-                animator.SetBool("Idle", true);
                 animator.SetBool("Move", false);
             }
         }
@@ -67,6 +69,7 @@ public class Boss : LiveObj
     {
         Debug.Log($"{name} : OUCH!!!");
         currentHP -= damage;
+        healthLine.DecreaseHealthlineValue(damage);
         if (currentHP <= 0 && IsAlive)
         {
             StartCoroutine(DeathAnimation());
@@ -86,5 +89,6 @@ public class Boss : LiveObj
         //gameObject.GetComponent<CapsuleCollider>().enabled = false;
         yield return new WaitForSeconds(2);
         Destroy(gameObject);
+        notificationManager.ShowNotification("ПОБЕДА!");
     }
 }

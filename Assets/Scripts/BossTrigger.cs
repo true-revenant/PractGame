@@ -5,6 +5,7 @@ using UnityEngine;
 public class BossTrigger : MonoBehaviour
 {
     [SerializeField] private Door bossDoor;
+    [SerializeField] private GameObject healthLineObj;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,7 @@ public class BossTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             bossDoor.doorIsOpening = true;
+            healthLineObj.SetActive(true);
         }
     }
 }

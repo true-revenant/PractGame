@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MainHallController : MonoBehaviour
 {
-    [SerializeField] private Button leftButton;
-    [SerializeField] private Button rightButton;
+    [SerializeField] private DoorButton leftButton;
+    [SerializeField] private DoorButton rightButton;
 
     // Update is called once per frame
     private void Update()

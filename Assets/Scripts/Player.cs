@@ -12,7 +12,8 @@ public class Player : LiveObj
     public float _movingSpeed = 3f;
     public float _force;
     public float jumpHeightK;
-    
+
+    [SerializeField] private HealthLine healthLine;
     private Vector3 _direction;
     private bool isGround = true;
     private Animator animator;
@@ -20,17 +21,17 @@ public class Player : LiveObj
     private bool bombIsReloaded = true;
     private float reloadTime = 0.5f;
 
-    public bool blueKeyCollected { get; set; } = false;
-    public bool orangeKeyCollected { get; set; } = false;
+    public bool blueKeyCollected { get; set; } = true;
+    public bool orangeKeyCollected { get; set; } = true;
 
     private void Awake()
     {
         IsAlive = true;
         maxHP = 100;
         currentHP = maxHP;
-        Cursor.lockState = CursorLockMode.Locked;
 
         animator = GetComponent<Animator>();
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
@@ -117,6 +118,7 @@ public class Player : LiveObj
     {
         Debug.Log($"{name} : - {damage} HP!");
         currentHP -= damage;
+        healthLine.DecreaseHealthlineValue(damage);
 
         if (currentHP <= 0) Die();
     }
@@ -124,6 +126,7 @@ public class Player : LiveObj
     public void TakeHeal()
     {
         currentHP += 15;
+        healthLine.IncreaseHealthlineValue(15);
         if (currentHP >= maxHP) currentHP = maxHP;
         Debug.Log($"{name} : HEALED!!! +15HP");
     }

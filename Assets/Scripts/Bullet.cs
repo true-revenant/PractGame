@@ -21,7 +21,7 @@ public class Bullet : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")) other.GetComponent<LiveObj>().TakeDamage(50);
+        if (other.CompareTag("Player")) other.GetComponent<LiveObj>().TakeDamage(5);
 
         Destroy(gameObject);
         //if (!other.CompareTag("Player") && !other.CompareTag("Turret")) Destroy(gameObject);
