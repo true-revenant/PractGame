@@ -17,7 +17,7 @@ public class Boss : LiveObj
 
     private void Awake()
     {
-        maxHP = 200;
+        maxHP = 100;
         currentHP = maxHP;
         IsAlive = true;
         animator = GetComponent<Animator>();
@@ -69,9 +69,11 @@ public class Boss : LiveObj
     {
         Debug.Log($"{name} : OUCH!!!");
         currentHP -= damage;
+        Debug.Log($"BOSS currentHP = {currentHP}");
         healthLine.DecreaseHealthlineValue(damage);
         if (currentHP <= 0 && IsAlive)
         {
+            Debug.Log("CURRENT HP <= 0");
             StartCoroutine(DeathAnimation());
         }
     }
@@ -86,6 +88,7 @@ public class Boss : LiveObj
     {
         IsAlive = false;
         animator.SetTrigger("Die");
+        Debug.Log("BOSS IS DEAD!");
         //gameObject.GetComponent<CapsuleCollider>().enabled = false;
         yield return new WaitForSeconds(2);
         Destroy(gameObject);

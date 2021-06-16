@@ -120,9 +120,9 @@ public class EnemyPatrol : LiveObj
 
     IEnumerator DeathAnimation()
     {
+        animator.SetTrigger("Die");
         IsAlive = false;
         //animator.SetBool("Die", true);
-        animator.SetTrigger("Die");
         gameObject.GetComponent<CapsuleCollider>().enabled = false;
         yield return new WaitForSeconds(2);
         Destroy(gameObject);

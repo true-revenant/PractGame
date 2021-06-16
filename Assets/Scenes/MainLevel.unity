@@ -97,7 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: fe655aa3b82517844adda2942c7323a5,
+    type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: d1c437db5f407b64b9282aa4f29d3b37,
     type: 2}
 --- !u!196 &4
@@ -3320,6 +3321,11 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 80
       objectReference: {fileID: 0}
+    - target: {fileID: 1078073377420594459, guid: 4722331aa1a106c4e9d93f936c40485f,
+        type: 3}
+      propertyPath: notificationTextField
+      value: 
+      objectReference: {fileID: 450565617}
     - target: {fileID: 7318238661112797824, guid: 4722331aa1a106c4e9d93f936c40485f,
         type: 3}
       propertyPath: m_RootOrder
@@ -3419,20 +3425,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7318238661112797827, guid: 4722331aa1a106c4e9d93f936c40485f,
         type: 3}
+      propertyPath: _attackStartPos
+      value: 
+      objectReference: {fileID: 558306460}
+    - target: {fileID: 7318238661112797827, guid: 4722331aa1a106c4e9d93f936c40485f,
+        type: 3}
       propertyPath: _bulletStartPos
       value: 
-      objectReference: {fileID: 558306459}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4722331aa1a106c4e9d93f936c40485f, type: 3}
 --- !u!4 &558306458 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7318238661112797824, guid: 4722331aa1a106c4e9d93f936c40485f,
-    type: 3}
-  m_PrefabInstance: {fileID: 558306457}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &558306459 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5521815799096522248, guid: 4722331aa1a106c4e9d93f936c40485f,
     type: 3}
   m_PrefabInstance: {fileID: 558306457}
   m_PrefabAsset: {fileID: 0}
@@ -4302,7 +4307,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.9150943, g: 0.88150996, b: 0.78991634, a: 1}
+  m_Color: {r: 1, g: 0.9575472, b: 0.9575472, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -4342,13 +4347,13 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 2.4290743e-25, z: 4.5905e-41, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -5922,7 +5927,7 @@ PrefabInstance:
     - target: {fileID: 1179444589407780789, guid: 4d996f26fd630ec4e9fed9c17d36e927,
         type: 3}
       propertyPath: force
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1179444589407780789, guid: 4d996f26fd630ec4e9fed9c17d36e927,
         type: 3}

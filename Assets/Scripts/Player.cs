@@ -6,8 +6,8 @@ public class Player : LiveObj
 {
     public GameObject _bombPref;
     public GameObject _bulletPref;
-    public Transform _bombStartPos;
-    public Transform _bulletStartPos;
+    public Transform _attackStartPos;
+    //public Transform _bulletStartPos;
     public float _rotationSpeed = 3f;
     public float _movingSpeed = 3f;
     public float _force;
@@ -20,6 +20,7 @@ public class Player : LiveObj
     private bool weaponIsReloaded = true;
     private bool bombIsReloaded = true;
     private float reloadTime = 0.5f;
+    private NotificationManager notificationManager;
 
     public bool blueKeyCollected { get; set; } = true;
     public bool orangeKeyCollected { get; set; } = true;
@@ -31,56 +32,59 @@ public class Player : LiveObj
         currentHP = maxHP;
 
         animator = GetComponent<Animator>();
+        notificationManager = GetComponent<NotificationManager>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
     void Update()
     {
-        _direction.x = Input.GetAxis("Horizontal");
-        _direction.z = Input.GetAxis("Vertical");
-
-        if (_direction != Vector3.zero) animator.SetBool("Move", true);
-        else animator.SetBool("Move", false);
-
-        transform.Translate(_direction * _movingSpeed * Time.deltaTime);
-        transform.Rotate(Vector3.up * _rotationSpeed * Time.deltaTime * Input.GetAxis("Mouse X"));
-
-        // Бросок гранаты
-        if (Input.GetMouseButtonDown(1) && bombIsReloaded)
+        if (IsAlive)
         {
-            animator.SetBool("ThrowBomb", true);
-            bombIsReloaded = false;
-            Invoke("BombReload", reloadTime);
-        }
-        
-        // выстрел
-        if (Input.GetMouseButton(0) && weaponIsReloaded)
-        {
-            animator.SetBool("Shoot", true);
-            weaponIsReloaded = false;
-            Invoke("WeaponReload", reloadTime);
-        }
-        
-        // проверка положения перед прыжком, бросаем луч вниз длиной в высоту персонажа
-        RaycastHit raycastHit;
-        var raycast = Physics.Raycast(transform.GetChild(0).position, Vector3.down, out raycastHit, 1.5f);
-        isGround = raycast ? true : false;
-        
-        //animator.SetBool("Jump", !isGround);
+            _direction.x = Input.GetAxis("Horizontal");
+            _direction.z = Input.GetAxis("Vertical");
 
-        // прыжок
-        if (Input.GetKeyDown(KeyCode.Q) && isGround)
-        {
-            animator.SetBool("Jump", isGround);
-        }
-        //else animator.SetBool("Jump", false);
+            if (_direction != Vector3.zero) animator.SetBool("Move", true);
+            else animator.SetBool("Move", false);
 
+            transform.Translate(_direction * _movingSpeed * Time.deltaTime);
+            transform.Rotate(Vector3.up * _rotationSpeed * Time.deltaTime * Input.GetAxis("Mouse X"));
+
+            // Бросок гранаты
+            if (Input.GetMouseButtonDown(1) && bombIsReloaded)
+            {
+                animator.SetBool("ThrowBomb", true);
+                bombIsReloaded = false;
+                Invoke("BombReload", reloadTime);
+            }
+        
+            // выстрел
+            if (Input.GetMouseButton(0) && weaponIsReloaded)
+            {
+                animator.SetBool("Shoot", true);
+                weaponIsReloaded = false;
+                Invoke("WeaponReload", reloadTime);
+            }
+        
+            // проверка положения перед прыжком, бросаем луч вниз длиной в высоту персонажа
+            RaycastHit raycastHit;
+            var raycast = Physics.Raycast(transform.GetChild(0).GetChild(0).position, Vector3.down, out raycastHit, 1.5f);
+            isGround = raycast ? true : false;
+        
+            //animator.SetBool("Jump", !isGround);
+
+            // прыжок
+            if (Input.GetKeyDown(KeyCode.Q) && isGround)
+            {
+                animator.SetBool("Jump", isGround);
+            }
+            //else animator.SetBool("Jump", false);
+        }
     }
 
     private void CreateBomb()
     {
-        var rBody = Instantiate(_bombPref, _bombStartPos.position, transform.rotation).GetComponent<Rigidbody>();
+        var rBody = Instantiate(_bombPref, _attackStartPos.position, transform.rotation).GetComponent<Rigidbody>();
         rBody.AddForce(transform.forward * _force, ForceMode.Impulse);
         
         //bomb.GetComponent<Rigidbody>().AddTorque(10f * Vector3.forward);
@@ -97,13 +101,16 @@ public class Player : LiveObj
         ////////////////
 
         RaycastHit hit;
-        var raycast = Physics.Raycast(_bulletStartPos.position, transform.forward, out hit, Mathf.Infinity);
+        var raycast = Physics.Raycast(_attackStartPos.position, transform.forward, out hit, Mathf.Infinity);
         
         if (raycast)
         {
             Debug.Log($"Попали в {hit.collider.gameObject.tag}");
             if (hit.collider.gameObject.CompareTag("Enemy") || hit.collider.gameObject.CompareTag("EnemyPatrol"))
                 hit.collider.gameObject.GetComponent<LiveObj>().TakeDamage(50);
+            else if (hit.collider.gameObject.CompareTag("Boss"))
+                hit.collider.gameObject.GetComponent<LiveObj>().TakeDamage(1);
+
         }
     }
 
@@ -120,7 +127,7 @@ public class Player : LiveObj
         currentHP -= damage;
         healthLine.DecreaseHealthlineValue(damage);
 
-        if (currentHP <= 0) Die();
+        if (currentHP <= 0 && IsAlive) StartCoroutine(DeathAnimation());
     }
 
     public void TakeHeal()
@@ -131,9 +138,13 @@ public class Player : LiveObj
         Debug.Log($"{name} : HEALED!!! +15HP");
     }
 
-    private void Die()
+    IEnumerator DeathAnimation()
     {
-        Debug.Log($"{name} : DEAD!!!");
+        animator.SetTrigger("Death");
+        IsAlive = false;
+        //gameObject.GetComponent<CapsuleCollider>().enabled = false;
+        yield return new WaitForSeconds(2);
+        notificationManager.ShowNotification("Вы УБИТЫ!");
     }
 
     private void WeaponReload()

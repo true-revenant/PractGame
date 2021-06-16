@@ -29,7 +29,11 @@ public class Bomb : MonoBehaviour
             }
             if (col.gameObject.tag == "Boss")
             {
-                col.GetComponent<LiveObj>().TakeDamage(50);
+                col.GetComponent<LiveObj>().TakeDamage(5);
+            }
+            if (col.gameObject.tag == "Player")
+            {
+                col.GetComponent<LiveObj>().TakeDamage(10);
             }
         }
         Destroy(gameObject);
