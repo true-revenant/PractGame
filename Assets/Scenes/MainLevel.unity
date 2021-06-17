@@ -3326,6 +3326,38 @@ PrefabInstance:
       propertyPath: notificationTextField
       value: 
       objectReference: {fileID: 450565617}
+    - target: {fileID: 3295870490115406779, guid: 4722331aa1a106c4e9d93f936c40485f,
+        type: 3}
+      propertyPath: _force
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3295870490115406779, guid: 4722331aa1a106c4e9d93f936c40485f,
+        type: 3}
+      propertyPath: _bombPref
+      value: 
+      objectReference: {fileID: 4151298751684108331, guid: dfa936be66d6ad043bf72479c5139eb3,
+        type: 3}
+    - target: {fileID: 3295870490115406779, guid: 4722331aa1a106c4e9d93f936c40485f,
+        type: 3}
+      propertyPath: _bulletPref
+      value: 
+      objectReference: {fileID: 5977638688046338175, guid: 78741e33b87fc8d40b825bc3b601f8e6,
+        type: 3}
+    - target: {fileID: 3295870490115406779, guid: 4722331aa1a106c4e9d93f936c40485f,
+        type: 3}
+      propertyPath: _attackStartPos
+      value: 
+      objectReference: {fileID: 558306460}
+    - target: {fileID: 3508220178303266782, guid: 4722331aa1a106c4e9d93f936c40485f,
+        type: 3}
+      propertyPath: _rotationSpeed
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6881154572208897513, guid: 4722331aa1a106c4e9d93f936c40485f,
+        type: 3}
+      propertyPath: jumpHeightK
+      value: 400
+      objectReference: {fileID: 0}
     - target: {fileID: 7318238661112797824, guid: 4722331aa1a106c4e9d93f936c40485f,
         type: 3}
       propertyPath: m_RootOrder
@@ -3433,6 +3465,11 @@ PrefabInstance:
       propertyPath: _bulletStartPos
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8008364209382576273, guid: 4722331aa1a106c4e9d93f936c40485f,
+        type: 3}
+      propertyPath: healthLine
+      value: 
+      objectReference: {fileID: 764874305}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4722331aa1a106c4e9d93f936c40485f, type: 3}
 --- !u!4 &558306458 stripped
@@ -3988,6 +4025,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2412037550095364514, guid: 524f0c24c0fe2d949919c0851cd6f43d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -4.999939
+      objectReference: {fileID: 0}
+    - target: {fileID: 4340557484400753355, guid: 524f0c24c0fe2d949919c0851cd6f43d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 4435228455580288231, guid: 524f0c24c0fe2d949919c0851cd6f43d,
         type: 3}
@@ -5924,6 +5971,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 661711793134926653, guid: 4d996f26fd630ec4e9fed9c17d36e927,
+        type: 3}
+      propertyPath: healthLine
+      value: 
+      objectReference: {fileID: 1573106640}
+    - target: {fileID: 786958631762411733, guid: 4d996f26fd630ec4e9fed9c17d36e927,
+        type: 3}
+      propertyPath: force
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1179444589407780789, guid: 4d996f26fd630ec4e9fed9c17d36e927,
         type: 3}
       propertyPath: force
@@ -6034,6 +6091,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Boss
+      objectReference: {fileID: 0}
+    - target: {fileID: 8928569220642699476, guid: 4d996f26fd630ec4e9fed9c17d36e927,
+        type: 3}
+      propertyPath: playerPos
+      value: 
+      objectReference: {fileID: 558306458}
+    - target: {fileID: 8928569220642699476, guid: 4d996f26fd630ec4e9fed9c17d36e927,
+        type: 3}
+      propertyPath: visionRadius
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 8928569220642699476, guid: 4d996f26fd630ec4e9fed9c17d36e927,
+        type: 3}
+      propertyPath: attackDistance
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d996f26fd630ec4e9fed9c17d36e927, type: 3}
@@ -6971,6 +7043,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyPatrol1
       objectReference: {fileID: 0}
+    - target: {fileID: 2711734470688513539, guid: 5ec88337c0f25f84b807e9de5a4056f4,
+        type: 3}
+      propertyPath: playerPos
+      value: 
+      objectReference: {fileID: 558306458}
     - target: {fileID: 5048426111287299080, guid: 5ec88337c0f25f84b807e9de5a4056f4,
         type: 3}
       propertyPath: playerPos
@@ -14234,6 +14311,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyPatrol2
       objectReference: {fileID: 0}
+    - target: {fileID: 2711734470688513539, guid: 5ec88337c0f25f84b807e9de5a4056f4,
+        type: 3}
+      propertyPath: playerPos
+      value: 
+      objectReference: {fileID: 558306458}
     - target: {fileID: 5048426111287299080, guid: 5ec88337c0f25f84b807e9de5a4056f4,
         type: 3}
       propertyPath: playerPos

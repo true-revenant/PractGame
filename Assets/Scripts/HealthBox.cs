@@ -14,7 +14,7 @@ public class HealthBox : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<Player>().TakeHeal();
+            other.GetComponent<PlayerController>().TakeHeal();
             Destroy(gameObject);
         }
     }

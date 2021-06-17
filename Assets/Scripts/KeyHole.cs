@@ -23,7 +23,7 @@ public class KeyHole : MonoBehaviour
             switch(KHtype)
             {
                 case KeyHoleType.blueHole:
-                    if (other.GetComponent<Player>().blueKeyCollected)
+                    if (other.GetComponent<PlayerController>().blueKeyCollected)
                     {
                         bossDoor.blueKeyIsInserted = true;
                         keyIsInserted = true;
@@ -32,7 +32,7 @@ public class KeyHole : MonoBehaviour
                     else notificationManager.ShowNotification("Нужен синий ключ!");
                     break;
                 case KeyHoleType.orangeHole:
-                    if (other.GetComponent<Player>().orangeKeyCollected)
+                    if (other.GetComponent<PlayerController>().orangeKeyCollected)
                     {
                         bossDoor.orangeKeyIsInserted = true;
                         keyIsInserted = true;

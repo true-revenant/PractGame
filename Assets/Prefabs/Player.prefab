@@ -865,7 +865,10 @@ GameObject:
   - component: {fileID: 7318238661112797824}
   - component: {fileID: 1240063034390770059}
   - component: {fileID: 34161545097086075}
-  - component: {fileID: 7318238661112797827}
+  - component: {fileID: 3295870490115406779}
+  - component: {fileID: 8008364209382576273}
+  - component: {fileID: 6881154572208897513}
+  - component: {fileID: 3508220178303266782}
   - component: {fileID: 1458090979310203852}
   - component: {fileID: 1078073377420594459}
   m_Layer: 0
@@ -920,7 +923,7 @@ Rigidbody:
   m_Interpolate: 2
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &7318238661112797827
+--- !u!114 &3295870490115406779
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -929,17 +932,53 @@ MonoBehaviour:
   m_GameObject: {fileID: 7318238661112797825}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8efd326921134ad418f79591b7d9ca80, type: 3}
+  m_Script: {fileID: 11500000, guid: fee152a30c4453541a8ded30cdf50ca4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _bombPref: {fileID: 0}
   _bulletPref: {fileID: 0}
   _attackStartPos: {fileID: 0}
+  _force: 0
+--- !u!114 &8008364209382576273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7318238661112797825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd72115e96dc1e04f95db6ee7a5036a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthLine: {fileID: 0}
+--- !u!114 &6881154572208897513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7318238661112797825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64828354aa7fe794f8f6b6060dbdbbeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpHeightK: 0
+--- !u!114 &3508220178303266782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7318238661112797825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d31b4fdf50d2a44a9b0c145bf8212ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _rotationSpeed: 3
   _movingSpeed: 3
-  _force: 0
-  jumpHeightK: 0
-  healthLine: {fileID: 0}
 --- !u!95 &1458090979310203852
 Animator:
   serializedVersion: 3

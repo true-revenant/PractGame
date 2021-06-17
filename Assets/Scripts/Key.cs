@@ -12,7 +12,7 @@ public class Key : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            var player = other.GetComponent<Player>();
+            var player = other.GetComponent<PlayerController>();
 
             switch(kType)
             {

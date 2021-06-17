@@ -18,7 +18,7 @@ public class EnemySpawner : MonoBehaviour
         for (int i = 0; i < _count; i++)
         {
             var rndDelta = Random.insideUnitSphere * _radius;
-            var enemy = Instantiate(_enemyPrefab, new Vector3(_spawnerTransform.position.x + rndDelta.x, 0, _spawnerTransform.position.z + rndDelta.z), Quaternion.identity, parent).GetComponent<Enemy>();
+            var enemy = Instantiate(_enemyPrefab, new Vector3(_spawnerTransform.position.x + rndDelta.x, 0, _spawnerTransform.position.z + rndDelta.z), Quaternion.identity, parent).GetComponent<EnemyBehave>();
             enemy.Init(playerPos);
         }
     }

@@ -21,19 +21,19 @@ public class Bomb : MonoBehaviour
                 col.GetComponent<Rigidbody>().isKinematic = false;
                 col.GetComponent<Rigidbody>().freezeRotation = false;
                 col.GetComponent<Rigidbody>().AddExplosionForce(600f, transform.position, 5f, 600f, ForceMode.Impulse);
-                col.GetComponent<LiveObj>().DeadByExplosion();
+                col.GetComponent<ITakeExplosionDamage>().DeadByExplosion();
             }
             if (col.gameObject.tag == "Turret")
             {
-                col.GetComponent<LiveObj>().DeadByExplosion();
+                col.GetComponent<ITakeExplosionDamage>().DeadByExplosion();
             }
             if (col.gameObject.tag == "Boss")
             {
-                col.GetComponent<LiveObj>().TakeDamage(5);
+                col.GetComponent<ITakeDamage>().TakeDamage(5);
             }
             if (col.gameObject.tag == "Player")
             {
-                col.GetComponent<LiveObj>().TakeDamage(10);
+                col.GetComponent<ITakeDamage>().TakeDamage(10);
             }
         }
         Destroy(gameObject);

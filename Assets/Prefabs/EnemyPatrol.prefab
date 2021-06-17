@@ -1079,6 +1079,9 @@ GameObject:
   - component: {fileID: 6752303404121333278}
   - component: {fileID: 7827867597661991559}
   - component: {fileID: 8649148206156609473}
+  - component: {fileID: 2711734470688513539}
+  - component: {fileID: 7446641916161990006}
+  - component: {fileID: 5141109010288567986}
   - component: {fileID: 5048426111287299080}
   - component: {fileID: 6589343272924022065}
   m_Layer: 0
@@ -1155,6 +1158,47 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &2711734470688513539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 874707206728108321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747355fd32eb1d246883d5e93c895d92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visionRadius: 8
+  attackDistance: 4
+--- !u!114 &7446641916161990006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 874707206728108321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9559730328ae28b458093c7ad98d61a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPref: {fileID: 5977638688046338175, guid: 78741e33b87fc8d40b825bc3b601f8e6,
+    type: 3}
+  bulletStartPos: {fileID: 6862579573725469229}
+--- !u!114 &5141109010288567986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 874707206728108321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8b0997c841f6744999af064132f614b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5048426111287299080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1168,11 +1212,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _waypoints: []
-  visionRadius: 3
-  attackDistance: 1
-  playerPos: {fileID: 0}
-  bulletPref: {fileID: 0}
-  bulletStartPos: {fileID: 0}
 --- !u!95 &6589343272924022065
 Animator:
   serializedVersion: 3

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Timers;
 
-public class Turrel : LiveObj
+public class Turrel : LiveObj, ITakeExplosionDamage, IAttack
 {
     private float _rotationDirectionSign = 1;
 
@@ -54,18 +54,14 @@ public class Turrel : LiveObj
         transform.Rotate(Vector3.up * Time.deltaTime * 25 * _rotationDirectionSign);
     }
 
-    private void CreateBullet()
+    public void CreateBullet()
     {
         //Instantiate(_bulletPref, _bulletStartPos.position, transform.rotation);
         var rBody = Instantiate(_bulletPref, _bulletStartPos.position, Quaternion.identity).GetComponent<Rigidbody>();
         rBody.velocity = _bulletStartPos.forward * 15f;
     }
 
-    public override void TakeDamage(int damage)
-    {
-    }
-
-    public override void DeadByExplosion()
+    public void DeadByExplosion()
     {
         StartCoroutine(DeathAnimation());
     }
