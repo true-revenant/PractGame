@@ -4,10 +4,20 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
+    private Transform bombPoolTransform;
+
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("Explosion", 3f);
+        bombPoolTransform = GameObject.Find("DamagingObjectsPool").transform;
+        //Invoke("Explosion", 3f);
+        StartCoroutine(ExplosionTask());
+    }
+
+    IEnumerator ExplosionTask()
+    {
+        yield return new WaitForSeconds(3);
+        Explosion();
     }
 
     private void Explosion()
@@ -36,6 +46,20 @@ public class Bomb : MonoBehaviour
                 col.GetComponent<ITakeDamage>().TakeDamage(10);
             }
         }
-        Destroy(gameObject);
+
+        ReturnToPool();
+    }
+
+    private void ReturnToPool()
+    {
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
+        gameObject.SetActive(false);
+        transform.SetParent(bombPoolTransform);
+
+        //if (!RotPool)
+        //{
+        //    Destroy(gameObject);
+        //}
     }
 }

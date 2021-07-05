@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Timers;
 
-public class Turrel : EnemyAttack, ILiveObj, ITakeExplosionDamage
+public class Turrel : BulletAttack, ILiveObj, ITakeExplosionDamage
 {
     private float _rotationDirectionSign = 1;
 
     [SerializeField] private Transform _playerPos;
     [SerializeField] private float _minDistance = 3f;
     [SerializeField] private float _rotationSpeed = 3f;
-    //[SerializeField] private Transform bulletStartPos;
 
     public int maxHP { get; set; }
     public int currentHP { get; set; }
@@ -43,7 +42,7 @@ public class Turrel : EnemyAttack, ILiveObj, ITakeExplosionDamage
                 // Если туррель смотрит на игрока, то стреляет
                 if (Quaternion.Angle(transform.rotation, newRotation) == 0)
                 {
-                    CreateRaycastBullet();
+                    CreateBullet();
                 }
 
                 transform.rotation = newRotation;
@@ -60,22 +59,6 @@ public class Turrel : EnemyAttack, ILiveObj, ITakeExplosionDamage
 
         transform.Rotate(Vector3.up * Time.deltaTime * 25 * _rotationDirectionSign);
     }
-
-    //public void CreateBullet()
-    //{
-    //    //var rBody = Instantiate(_bulletPref, _bulletStartPos.position, Quaternion.identity).GetComponent<Rigidbody>();
-    //    //rBody.velocity = _bulletStartPos.forward * 15f;
-
-    //    var bullet = bulletPool.GetBullet();
-    //    bullet.transform.position = bulletStartPos.position;
-    //    bullet.transform.rotation = Quaternion.identity;
-    //    var rBody = bullet.GetComponent<Rigidbody>();
-
-    //    rBody.velocity = bulletStartPos.forward * 15f;
-
-    //    Debug.Log($"BULLETS IN POOL = {bulletPool.Capacity}");
-    //    Debug.Log($"BULLET CHILDS IN POOL TRANSFORM = {bulletPoolTransform.childCount}");
-    //}
 
     public void DeadByExplosion()
     {

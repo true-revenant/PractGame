@@ -2,24 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttacking : MonoBehaviour, IAttack, IBombAttack
+public class PlayerAttacking : BombAttack
 {
     // ATTACK
     private PlayerController playerController;
-    private GameObject _bombPref;   
+    //private GameObject _bombPref;   
     private bool weaponIsReloaded = true;
     private bool bombIsReloaded = true;
     private float reloadTime = 0.5f;
     private Animator animator;
 
-    public float _force;
-    public Transform _attackStartPos;
+    //public float _force;
+    [SerializeField] private Transform _attackStartPos;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
         playerController = GetComponent<PlayerController>();
-        _bombPref = (GameObject)Resources.Load("Prefabs/Bomb");
+        //_bombPref = (GameObject)Resources.Load("Prefabs/Bomb");
     }
 
     // Update is called once per frame
@@ -47,13 +47,13 @@ public class PlayerAttacking : MonoBehaviour, IAttack, IBombAttack
         }
     }
 
-    public void CreateBomb()
-    {
-        var rBody = Instantiate(_bombPref, _attackStartPos.position, transform.rotation).GetComponent<Rigidbody>();
-        rBody.AddForce(transform.forward * _force, ForceMode.Impulse);
+    //public void CreateBomb()
+    //{
+    //    var rBody = Instantiate(_bombPref, _attackStartPos.position, transform.rotation).GetComponent<Rigidbody>();
+    //    rBody.AddForce(transform.forward * _force, ForceMode.Impulse);
 
-        //bomb.GetComponent<Rigidbody>().AddTorque(10f * Vector3.forward);
-    }
+    //    //bomb.GetComponent<Rigidbody>().AddTorque(10f * Vector3.forward);
+    //}
 
     public void CreateRaycastBullet()
     {

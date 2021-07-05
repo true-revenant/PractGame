@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IAttack
 {
-    public abstract void CreateRaycastBullet();
+    public abstract void CreateBullet();
 }

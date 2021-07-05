@@ -4,13 +4,11 @@ using UnityEngine;
 
 public sealed class Bullet : MonoBehaviour
 {
-    private BulletPool bulletPool;
     private Transform bulletPoolTransform;
 
     private void Start()
     {
-        bulletPool = GameObject.Find("GameManager").GetComponent<GameManager>().BulletPool;
-        bulletPoolTransform = GameObject.Find("BulletPool").transform;
+        bulletPoolTransform = GameObject.Find("DamagingObjectsPool").transform;
     }
 
     // Update is called once per frame
@@ -26,10 +24,6 @@ public sealed class Bullet : MonoBehaviour
         if (other.CompareTag("Player")) other.GetComponent<ITakeDamage>().TakeDamage(5);
 
         ReturnToPool();
-
-        //Destroy(gameObject);
-
-        //if (!other.CompareTag("Player") && !other.CompareTag("Turret")) Destroy(gameObject);
     }
 
     private void ReturnToPool()

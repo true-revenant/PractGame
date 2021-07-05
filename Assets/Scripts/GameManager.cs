@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public BulletPool BulletPool { get; private set; }
+    public DamagingObjectsPool BulletPool { get; private set; }
 
     void Awake()
     {
-        BulletPool = new BulletPool(20);
+        BulletPool = new DamagingObjectsPool(20);
     }
 }

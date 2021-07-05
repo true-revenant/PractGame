@@ -3333,6 +3333,11 @@ PrefabInstance:
       objectReference: {fileID: 450565617}
     - target: {fileID: 3295870490115406779, guid: 4722331aa1a106c4e9d93f936c40485f,
         type: 3}
+      propertyPath: force
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3295870490115406779, guid: 4722331aa1a106c4e9d93f936c40485f,
+        type: 3}
       propertyPath: _force
       value: 10
       objectReference: {fileID: 0}
@@ -3348,6 +3353,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5977638688046338175, guid: 78741e33b87fc8d40b825bc3b601f8e6,
         type: 3}
+    - target: {fileID: 3295870490115406779, guid: 4722331aa1a106c4e9d93f936c40485f,
+        type: 3}
+      propertyPath: bombStartPos
+      value: 
+      objectReference: {fileID: 558306460}
     - target: {fileID: 3295870490115406779, guid: 4722331aa1a106c4e9d93f936c40485f,
         type: 3}
       propertyPath: _attackStartPos
