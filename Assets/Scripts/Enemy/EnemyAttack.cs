@@ -4,13 +4,32 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour, IAttack
 {
-    [SerializeField] private GameObject bulletPref;
-    [SerializeField] private Transform bulletStartPos;
+    [SerializeField] protected Transform bulletStartPos;
 
-    public void CreateBullet()
+    protected BulletPool bulletPool;
+    protected Transform bulletPoolTransform;
+
+    private void Start()
     {
-        //Instantiate(_bulletPref, _bulletStartPos.position, transform.rotation);
-        var rBody = Instantiate(bulletPref, bulletStartPos.position, Quaternion.identity).GetComponent<Rigidbody>();
+        InitBulletPool();
+    }
+
+    protected void InitBulletPool()
+    {
+        bulletPool = GameObject.Find("GameManager").GetComponent<GameManager>().BulletPool;
+        bulletPoolTransform = GameObject.Find("BulletPool").transform;
+    }
+
+    public void CreateRaycastBullet()
+    {
+        var bullet = bulletPool.GetBullet();
+        bullet.transform.position = bulletStartPos.position;
+        bullet.transform.rotation = Quaternion.identity;
+        var rBody = bullet.GetComponent<Rigidbody>();
+
         rBody.velocity = bulletStartPos.forward * 15f;
+
+        Debug.Log($"BULLETS IN POOL = {bulletPool.Capacity}");
+        Debug.Log($"BULLET CHILDS IN POOL TRANSFORM = {bulletPoolTransform.childCount}");
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : LiveObj, ITakeDamage
+public class PlayerController : MonoBehaviour, ILiveObj, ITakeDamage
 {
     [SerializeField] private HealthLine healthLine;
     private Animator animator;
@@ -10,6 +10,9 @@ public class PlayerController : LiveObj, ITakeDamage
 
     public bool blueKeyCollected { get; set; } = false;
     public bool orangeKeyCollected { get; set; } = false;
+    public int maxHP { get; set; }
+    public int currentHP { get; set; }
+    public bool IsAlive { get; set; }
 
     private void Awake()
     {
@@ -21,7 +24,6 @@ public class PlayerController : LiveObj, ITakeDamage
         notificationManager = GetComponent<NotificationManager>();
         Cursor.lockState = CursorLockMode.Locked;
     }
-
 
     public void TakeDamage(int damage)
     {

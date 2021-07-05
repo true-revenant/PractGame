@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boss : LiveObj, ITakeDamage, IBombAttack
+public class Boss : MonoBehaviour, ILiveObj, ITakeDamage, IBombAttack
 {
     [SerializeField] private float visionRadius;
     [SerializeField] private float attackDistance;
@@ -14,6 +14,10 @@ public class Boss : LiveObj, ITakeDamage, IBombAttack
 
     private Animator animator;
     private NotificationManager notificationManager;
+
+    public int maxHP { get; set; }
+    public int currentHP { get; set; }
+    public bool IsAlive { get; set; }
 
     private void Awake()
     {

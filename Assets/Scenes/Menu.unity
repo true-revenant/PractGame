@@ -705,6 +705,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MenuPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 25160076235117630, guid: 8e4fd84eafc312d4ca76bb0e7349a89e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3075178957295133111, guid: 8e4fd84eafc312d4ca76bb0e7349a89e,
         type: 3}
       propertyPath: m_Transition

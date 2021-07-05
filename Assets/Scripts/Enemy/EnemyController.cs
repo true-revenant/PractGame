@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : LiveObj, ITakeDamage, ITakeExplosionDamage
+public class EnemyController : MonoBehaviour, ILiveObj, ITakeDamage, ITakeExplosionDamage
 {
     private Animator animator;
+
+    public int maxHP { get; set; }
+    public int currentHP { get; set; }
+    public bool IsAlive { get; set; }
 
     private void Awake()
     {

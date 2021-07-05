@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossController : LiveObj, ITakeDamage
+public class BossController : MonoBehaviour, ILiveObj, ITakeDamage
 {
     [SerializeField] private HealthLine healthLine;
 
     private Animator animator;
     private NotificationManager notificationManager;
+
+    public int maxHP { get; set; }
+    public int currentHP { get; set; }
+    public bool IsAlive { get; set; }
 
     private void Awake()
     {

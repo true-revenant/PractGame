@@ -5,20 +5,21 @@ using UnityEngine;
 public class PlayerAttacking : MonoBehaviour, IAttack, IBombAttack
 {
     // ATTACK
-    public GameObject _bombPref;
-    public GameObject _bulletPref;
-    public Transform _attackStartPos;
+    private PlayerController playerController;
+    private GameObject _bombPref;   
     private bool weaponIsReloaded = true;
     private bool bombIsReloaded = true;
     private float reloadTime = 0.5f;
     private Animator animator;
+
     public float _force;
-    private PlayerController playerController;
+    public Transform _attackStartPos;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
         playerController = GetComponent<PlayerController>();
+        _bombPref = (GameObject)Resources.Load("Prefabs/Bomb");
     }
 
     // Update is called once per frame
@@ -54,16 +55,8 @@ public class PlayerAttacking : MonoBehaviour, IAttack, IBombAttack
         //bomb.GetComponent<Rigidbody>().AddTorque(10f * Vector3.forward);
     }
 
-    public void CreateBullet()
+    public void CreateRaycastBullet()
     {
-        //Debug.Log("Create Bullet!");
-        //Instantiate(_bulletPref, _bulletStartPos.position, transform.rotation)
-
-        //var rBody = Instantiate(_bulletPref, _bulletStartPos.position, Quaternion.identity).GetComponent<Rigidbody>();
-        //rBody.velocity = _bulletStartPos.forward * 25f;
-
-        ////////////////
-
         RaycastHit hit;
         var raycast = Physics.Raycast(_attackStartPos.position, transform.forward, out hit, Mathf.Infinity);
 
@@ -77,6 +70,16 @@ public class PlayerAttacking : MonoBehaviour, IAttack, IBombAttack
 
         }
     }
+
+    //public void CreateBullet()
+    //{
+    //    Debug.Log("Create Bullet!");
+    //    Instantiate(_bulletPref, _bulletStartPos.position, transform.rotation)
+
+    //    var rBody = Instantiate(_bulletPref, _bulletStartPos.position, Quaternion.identity).GetComponent<Rigidbody>();
+    //    rBody.velocity = _bulletStartPos.forward * 25f;
+    //}
+
 
     private void WeaponReload()
     {

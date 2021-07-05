@@ -3,22 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Timers;
 
-public class Turrel : LiveObj, ITakeExplosionDamage, IAttack
+public class Turrel : EnemyAttack, ILiveObj, ITakeExplosionDamage
 {
     private float _rotationDirectionSign = 1;
 
     [SerializeField] private Transform _playerPos;
     [SerializeField] private float _minDistance = 3f;
     [SerializeField] private float _rotationSpeed = 3f;
+    //[SerializeField] private Transform bulletStartPos;
 
-    public GameObject _bulletPref;
-    public Transform _bulletStartPos;
+    public int maxHP { get; set; }
+    public int currentHP { get; set; }
+    public bool IsAlive { get; set; }
 
     private void Awake()
     {
         maxHP = 100;
         currentHP = maxHP;
         IsAlive = true;
+    }
+
+    private void Start()
+    {
+        InitBulletPool();
     }
 
     // Update is called once per frame
@@ -36,7 +43,7 @@ public class Turrel : LiveObj, ITakeExplosionDamage, IAttack
                 // Если туррель смотрит на игрока, то стреляет
                 if (Quaternion.Angle(transform.rotation, newRotation) == 0)
                 {
-                    CreateBullet();
+                    CreateRaycastBullet();
                 }
 
                 transform.rotation = newRotation;
@@ -54,12 +61,21 @@ public class Turrel : LiveObj, ITakeExplosionDamage, IAttack
         transform.Rotate(Vector3.up * Time.deltaTime * 25 * _rotationDirectionSign);
     }
 
-    public void CreateBullet()
-    {
-        //Instantiate(_bulletPref, _bulletStartPos.position, transform.rotation);
-        var rBody = Instantiate(_bulletPref, _bulletStartPos.position, Quaternion.identity).GetComponent<Rigidbody>();
-        rBody.velocity = _bulletStartPos.forward * 15f;
-    }
+    //public void CreateBullet()
+    //{
+    //    //var rBody = Instantiate(_bulletPref, _bulletStartPos.position, Quaternion.identity).GetComponent<Rigidbody>();
+    //    //rBody.velocity = _bulletStartPos.forward * 15f;
+
+    //    var bullet = bulletPool.GetBullet();
+    //    bullet.transform.position = bulletStartPos.position;
+    //    bullet.transform.rotation = Quaternion.identity;
+    //    var rBody = bullet.GetComponent<Rigidbody>();
+
+    //    rBody.velocity = bulletStartPos.forward * 15f;
+
+    //    Debug.Log($"BULLETS IN POOL = {bulletPool.Capacity}");
+    //    Debug.Log($"BULLET CHILDS IN POOL TRANSFORM = {bulletPoolTransform.childCount}");
+    //}
 
     public void DeadByExplosion()
     {
