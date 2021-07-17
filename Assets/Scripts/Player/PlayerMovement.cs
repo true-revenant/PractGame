@@ -10,10 +10,12 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 _direction;
     private Animator animator;
     private PlayerController playerController;
+    private AudioSource audioSource;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         playerController = GetComponent<PlayerController>();
     }
 
@@ -26,9 +28,18 @@ public class PlayerMovement : MonoBehaviour
             _direction.x = Input.GetAxis("Horizontal");
             _direction.z = Input.GetAxis("Vertical");
 
-            if (_direction != Vector3.zero) animator.SetBool("Move", true);
-            else animator.SetBool("Move", false);
-
+            if (_direction != Vector3.zero)
+            {
+                if (!audioSource.isPlaying) audioSource.PlayOneShot(playerController.GetSounds()[1]);
+                animator.SetBool("Move", true);
+            }
+            else
+            {
+                if (audioSource.isPlaying) audioSource.Stop();
+                
+                animator.SetBool("Move", false);
+            }
+            
             transform.Translate(_direction * _movingSpeed * Time.deltaTime);
             transform.Rotate(Vector3.up * _rotationSpeed * Time.deltaTime * Input.GetAxis("Mouse X"));
         }

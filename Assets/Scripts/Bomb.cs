@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
+    [SerializeField] private GameObject explosionObjectPref;
     private Transform bombPoolTransform;
 
     // Start is called before the first frame update
@@ -47,6 +48,8 @@ public class Bomb : MonoBehaviour
             }
         }
 
+        Instantiate(explosionObjectPref, transform.position, transform.rotation);
+        
         ReturnToPool();
     }
 

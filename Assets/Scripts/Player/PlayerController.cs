@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour, ILiveObj, ITakeDamage
 {
     [SerializeField] private HealthLine healthLine;
+    [SerializeField] private AudioClip[] audioClips;
+    
     private Animator animator;
     private NotificationManager notificationManager;
 
@@ -49,5 +51,10 @@ public class PlayerController : MonoBehaviour, ILiveObj, ITakeDamage
         //gameObject.GetComponent<CapsuleCollider>().enabled = false;
         yield return new WaitForSeconds(2);
         notificationManager.ShowNotification("бШ сахрш!");
+    }
+
+    public AudioClip[] GetSounds()
+    {
+        return audioClips;
     }
 }

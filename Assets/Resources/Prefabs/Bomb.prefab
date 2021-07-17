@@ -209,9 +209,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f48aed3b5b2a40d4596e21b8e15fe7d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionLayer:
-    serializedVersion: 2
-    m_Bits: 64
+  explosionObjectPref: {fileID: 7779224092383452008, guid: b9bdf55da69604e4691682ad020e58e0,
+    type: 3}
 --- !u!54 &6531842655035989068
 Rigidbody:
   m_ObjectHideFlags: 0

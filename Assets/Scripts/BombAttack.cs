@@ -34,7 +34,7 @@ public class BombAttack : MonoBehaviour, IBombAttack
 
         rBody.AddForce(transform.forward * force, ForceMode.Impulse);
 
-        Debug.Log($"BULLETS IN POOL = {bombPool.BulletsCapacity}");
-        Debug.Log($"BULLET CHILDS IN POOL TRANSFORM = {bombPoolTransform.childCount}");
+        //Debug.Log($"BULLETS IN POOL = {bombPool.BulletsCapacity}");
+        //Debug.Log($"BULLET CHILDS IN POOL TRANSFORM = {bombPoolTransform.childCount}");
     }
 }

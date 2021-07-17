@@ -15,8 +15,12 @@ public class Menu : MonoBehaviour
 
     [SerializeField] private GameObject panelSettings;
 
+    private AudioSource backMusicAudioSource;
+
     private void Awake()
     {
+        backMusicAudioSource = GameObject.Find("BackgroundMusic").GetComponent<AudioSource>();
+
         Debug.Log("MENU AWAKE!");
         btnStart.onClick.AddListener(StartGame);
         btnSettings.onClick.AddListener(ShowSettings);
@@ -61,5 +65,6 @@ public class Menu : MonoBehaviour
     private void SetMusicEffectsVolume(float value)
     {
         Debug.Log("Music Volume Changed!");
+        backMusicAudioSource.volume = value;
     }
 }

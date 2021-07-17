@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour, ILiveObj, ITakeDamage, ITakeExplosionDamage
 {
     private Animator animator;
+    private ParticleSystem _particleSystem;
 
     public int maxHP { get; set; }
     public int currentHP { get; set; }
@@ -17,10 +18,12 @@ public class EnemyController : MonoBehaviour, ILiveObj, ITakeDamage, ITakeExplos
         IsAlive = true;
 
         animator = GetComponent<Animator>();
+        _particleSystem = GetComponent<ParticleSystem>();
     }
 
     public void TakeDamage(int damage)
     {
+        _particleSystem.Play();
         Debug.Log($"{name} : OUCH!!!");
         currentHP -= damage;
         if (currentHP <= 0 && IsAlive)

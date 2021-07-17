@@ -5,21 +5,20 @@ using UnityEngine;
 public class PlayerAttacking : BombAttack
 {
     // ATTACK
-    private PlayerController playerController;
-    //private GameObject _bombPref;   
+    private PlayerController playerController;   
     private bool weaponIsReloaded = true;
     private bool bombIsReloaded = true;
     private float reloadTime = 0.5f;
     private Animator animator;
+    private AudioSource audioSource;
 
-    //public float _force;
     [SerializeField] private Transform _attackStartPos;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
         playerController = GetComponent<PlayerController>();
-        //_bombPref = (GameObject)Resources.Load("Prefabs/Bomb");
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -69,6 +68,8 @@ public class PlayerAttacking : BombAttack
                 hit.collider.gameObject.GetComponent<ITakeDamage>().TakeDamage(1);
 
         }
+
+        audioSource.PlayOneShot(playerController.GetSounds()[0]);
     }
 
     //public void CreateBullet()

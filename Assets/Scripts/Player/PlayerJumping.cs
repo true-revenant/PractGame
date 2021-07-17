@@ -9,11 +9,14 @@ public class PlayerJumping : MonoBehaviour
     private bool isGround = true;
     private Animator animator;
     private PlayerController playerController;
+    private AudioSource audioSource;
+
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
         playerController = GetComponent<PlayerController>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -30,9 +33,16 @@ public class PlayerJumping : MonoBehaviour
             //animator.SetBool("Jump", !isGround);
 
             // прыжок
-            if (Input.GetKeyDown(KeyCode.Q) && isGround)
+            if (Input.GetKeyDown(KeyCode.Q))
             {
-                animator.SetBool("Jump", isGround);
+                if (isGround)
+                {
+                    animator.SetBool("Jump", isGround);
+                }
+                else
+                {
+                    audioSource.Stop();
+                }
             }
             //else animator.SetBool("Jump", false);
         }

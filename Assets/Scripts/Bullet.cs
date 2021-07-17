@@ -21,9 +21,13 @@ public sealed class Bullet : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")) other.GetComponent<ITakeDamage>().TakeDamage(5);
-
-        ReturnToPool();
+        if (!other.CompareTag("reverbZone"))
+        {
+            if (other.CompareTag("Player"))
+                other.GetComponent<ITakeDamage>().TakeDamage(5);
+            
+            ReturnToPool();
+        }
     }
 
     private void ReturnToPool()

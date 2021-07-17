@@ -29,7 +29,7 @@ public class BulletAttack : MonoBehaviour, IAttack
 
         rBody.velocity = bulletStartPos.forward * 15f;
 
-        Debug.Log($"BULLETS IN POOL = {bulletPool.BulletsCapacity}");
-        Debug.Log($"BULLET CHILDS IN POOL TRANSFORM = {bulletPoolTransform.childCount}");
+        //Debug.Log($"BULLETS IN POOL = {bulletPool.BulletsCapacity}");
+        //Debug.Log($"BULLET CHILDS IN POOL TRANSFORM = {bulletPoolTransform.childCount}");
     }
 }
