@@ -6,6 +6,7 @@ public class EnemyBehave : MonoBehaviour
 {
     private Animator animator;
     private EnemyController enemyController;
+    private HumanAudioSourceController humanAudioSourceController;
 
     [SerializeField] Transform playerPos;
     [SerializeField] private float visionRadius;
@@ -15,6 +16,7 @@ public class EnemyBehave : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         enemyController = GetComponent<EnemyController>();
+        humanAudioSourceController = GetComponent<HumanAudioSourceController>();
     }
 
     // Update is called once per frame
@@ -37,6 +39,7 @@ public class EnemyBehave : MonoBehaviour
                     {
                         animator.SetBool("Move", false);
                         animator.SetBool("Shoot", true);
+                        humanAudioSourceController.StopAudio();
                     }
                 }
                 else
@@ -44,6 +47,7 @@ public class EnemyBehave : MonoBehaviour
                     transform.position = Vector3.MoveTowards(transform.position, playerPos.position, 2f * Time.deltaTime);
                     animator.SetBool("Move", true);
                     animator.SetBool("Shoot", false);
+                    humanAudioSourceController.PlayStepAudio();
                 }
 
                 transform.rotation = newRotation;

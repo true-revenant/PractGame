@@ -6,17 +6,18 @@ public class PlayerJumping : MonoBehaviour
 {
     // JUMP
     public float jumpHeightK;
-    private bool isGround = true;
+    //private bool isGround = true;
     private Animator animator;
     private PlayerController playerController;
-    private AudioSource audioSource;
 
+    //SOUND
+    private HumanAudioSourceController humanAudioSourceController;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
         playerController = GetComponent<PlayerController>();
-        audioSource = GetComponent<AudioSource>();
+        humanAudioSourceController = GetComponent<HumanAudioSourceController>();
     }
 
     // Update is called once per frame
@@ -25,27 +26,24 @@ public class PlayerJumping : MonoBehaviour
         /// JUMPING ///
         if (playerController.IsAlive)
         {
-            // проверка положения перед прыжком, бросаем луч вниз длиной в высоту персонажа
-            RaycastHit raycastHit;
-            var raycast = Physics.Raycast(transform.GetChild(0).GetChild(0).position, Vector3.down, out raycastHit, 1.5f);
-            isGround = raycast ? true : false;
-
-            //animator.SetBool("Jump", !isGround);
-
             // прыжок
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                if (isGround)
+                if (isGround())
                 {
-                    animator.SetBool("Jump", isGround);
+                    animator.SetBool("Jump", isGround());
+                    humanAudioSourceController.StopAudio();
                 }
-                else
-                {
-                    audioSource.Stop();
-                }
+                else { }
             }
-            //else animator.SetBool("Jump", false);
         }
+    }
+
+    public bool isGround()
+    {
+        RaycastHit raycastHit;
+        var raycast = Physics.Raycast(transform.GetChild(0).GetChild(0).position, Vector3.down, out raycastHit, 1.5f);
+        return raycast ? true : false;
     }
 
     public void Jump()

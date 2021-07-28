@@ -5,18 +5,29 @@ using UnityEngine;
 public class DoorButton : MonoBehaviour
 {
     public ButtonType buttonType;
-    
+
     [SerializeField] private Door _door;
+    [SerializeField] private AudioClip clip;
     private Vector3 pressedButtonPos;
     private bool buttonPressed = false;
     private NotificationManager notificationManager;
+    private AudioSource audioSource;
+    private SoundController soundController;
+
 
     public bool SideDoorButtonIsAvailable { get; set; } = false;
 
     private void Awake()
     {
         notificationManager = GetComponent<NotificationManager>();
-        pressedButtonPos = new Vector3(transform.GetChild(1).localPosition.x, transform.GetChild(1).localPosition.y, transform.GetChild(1).localPosition.z - 0.05f);
+        pressedButtonPos = new Vector3(transform.GetChild(1).localPosition.x, 
+                                        transform.GetChild(1).localPosition.y, 
+                                        transform.GetChild(1).localPosition.z - 0.05f);
+
+        audioSource = GetComponent<AudioSource>();
+
+        soundController = GameObject.Find("SoundManager").GetComponent<SoundController>();
+        audioSource.volume = soundController.EffectsVolume;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -28,6 +39,7 @@ public class DoorButton : MonoBehaviour
                 {
                     _door.doorIsOpening = true;
                     buttonPressed = true;
+                    audioSource.PlayOneShot(clip);
                 }
                 break;
 
@@ -38,6 +50,8 @@ public class DoorButton : MonoBehaviour
                     {
                         _door.doorIsOpening = true;
                         buttonPressed = true;
+                        audioSource.PlayOneShot(clip);
+
                     }
                     else notificationManager.ShowNotification("В комнате еще есть враги!");
                 }
@@ -54,7 +68,10 @@ public class DoorButton : MonoBehaviour
     // Update is called once per frame
     void Update() 
     {
-        if (buttonPressed) PressButton();
+        if (buttonPressed)
+        {
+            PressButton();
+        }
     }
 
     private void PressButton()

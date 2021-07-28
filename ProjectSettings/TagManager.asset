@@ -11,6 +11,7 @@ TagManager:
   - Floor
   - Items
   - reverbZone
+  - Button
   layers:
   - Default
   - TransparentFX

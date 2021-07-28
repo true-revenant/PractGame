@@ -11,8 +11,8 @@ public class Bomb : MonoBehaviour
     void Start()
     {
         bombPoolTransform = GameObject.Find("DamagingObjectsPool").transform;
-        //Invoke("Explosion", 3f);
-        StartCoroutine(ExplosionTask());
+        Invoke("Explosion", 3f);
+        //StartCoroutine(ExplosionTask());
     }
 
     IEnumerator ExplosionTask()

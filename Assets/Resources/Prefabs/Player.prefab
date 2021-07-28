@@ -872,6 +872,7 @@ GameObject:
   - component: {fileID: 1458090979310203852}
   - component: {fileID: 1078073377420594459}
   - component: {fileID: 8279897369859599802}
+  - component: {fileID: 7163977775398200739}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -938,6 +939,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bombStartPos: {fileID: 0}
   force: 0
+  shootSound: {fileID: 8300000, guid: 0a2fbaf584ffd5b49993206a11ef1f39, type: 3}
   _attackStartPos: {fileID: 0}
 --- !u!114 &8008364209382576273
 MonoBehaviour:
@@ -952,10 +954,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthLine: {fileID: 0}
-  audioClips:
-  - {fileID: 8300000, guid: 0a2fbaf584ffd5b49993206a11ef1f39, type: 3}
-  - {fileID: 8300000, guid: 7d810a49563d30c4d9217a6f1e6da7e6, type: 3}
-  - {fileID: 8300000, guid: 5671320e0b244d2418e8ec24a9fd5e6a, type: 3}
 --- !u!114 &6881154572208897513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1025,7 +1023,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 7dc5cb55b06c94b41bce4d728a49d36b, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -1111,6 +1109,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7163977775398200739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7318238661112797825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdb6f7db8ddf0a841b4a31886fd3feee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stepsSounds:
+  - {fileID: 8300000, guid: 45e1a330c2257f94988ced9cb7df1ba6, type: 3}
+  - {fileID: 8300000, guid: 2ac3ceca32b6557439bc2079949fe578, type: 3}
+  - {fileID: 8300000, guid: 1f557c24d899a6d4bb11267a926f7102, type: 3}
+  jumpSound: {fileID: 0}
 --- !u!1 &7318238661289426315
 GameObject:
   m_ObjectHideFlags: 0

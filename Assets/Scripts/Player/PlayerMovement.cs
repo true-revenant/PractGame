@@ -10,13 +10,17 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 _direction;
     private Animator animator;
     private PlayerController playerController;
-    private AudioSource audioSource;
+    private PlayerJumping playerJumping;
+
+    //SOUND
+    private HumanAudioSourceController humanAudioSourceController;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        audioSource = GetComponent<AudioSource>();
         playerController = GetComponent<PlayerController>();
+        playerJumping = GetComponent<PlayerJumping>();
+        humanAudioSourceController = GetComponent<HumanAudioSourceController>();
     }
 
     // Update is called once per frame
@@ -28,15 +32,14 @@ public class PlayerMovement : MonoBehaviour
             _direction.x = Input.GetAxis("Horizontal");
             _direction.z = Input.GetAxis("Vertical");
 
-            if (_direction != Vector3.zero)
+            if (_direction != Vector3.zero && playerJumping.isGround())
             {
-                if (!audioSource.isPlaying) audioSource.PlayOneShot(playerController.GetSounds()[1]);
+                humanAudioSourceController.PlayStepAudio();
                 animator.SetBool("Move", true);
             }
             else
             {
-                if (audioSource.isPlaying) audioSource.Stop();
-                
+                //humanAudioSourceController.StopAudio();
                 animator.SetBool("Move", false);
             }
             

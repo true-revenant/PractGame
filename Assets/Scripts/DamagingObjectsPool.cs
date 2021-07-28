@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public sealed class DamagingObjectsPool
+public sealed class DamagingObjectsPool : MonoBehaviour
 {
-    //private readonly HashSet<GameObject> _bullets;
-    //private readonly HashSet<GameObject> _bombs;
-
     private readonly Dictionary<string, HashSet<GameObject>> _damagingObjectsPool;
 
     private readonly int _capacity;
@@ -15,7 +12,7 @@ public sealed class DamagingObjectsPool
     private Transform poolTransform;
 
     public int BulletsCapacity 
-    { 
+    {
         get { return GetDamagingObjectsList(DamagingObjectType.Bullet).Count; }
     }
     public int BombsCapacity
@@ -25,9 +22,6 @@ public sealed class DamagingObjectsPool
 
     public DamagingObjectsPool(int capacityPool)
     {
-        //_bullets = new HashSet<GameObject>();
-        //_bombs = new HashSet<GameObject>();
-
         _damagingObjectsPool = new Dictionary<string, HashSet<GameObject>>();
 
         _capacity = capacityPool;
@@ -55,8 +49,6 @@ public sealed class DamagingObjectsPool
 
     public GameObject GetDamagingObject(DamagingObjectType damagingObjectType)
     {
-        //var damagingObj = _bullets.FirstOrDefault(x => !x.gameObject.activeSelf);
-
         var damagingObj = GetDamagingObjectsList(damagingObjectType).FirstOrDefault(x => !x.gameObject.activeSelf);
 
         if (damagingObj == null)

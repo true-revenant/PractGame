@@ -16,10 +16,12 @@ public class Menu : MonoBehaviour
     [SerializeField] private GameObject panelSettings;
 
     private AudioSource backMusicAudioSource;
+    private SoundController soundController;
 
     private void Awake()
     {
         backMusicAudioSource = GameObject.Find("BackgroundMusic").GetComponent<AudioSource>();
+        soundController = GameObject.Find("SoundManager").GetComponent<SoundController>();
 
         Debug.Log("MENU AWAKE!");
         btnStart.onClick.AddListener(StartGame);
@@ -59,7 +61,39 @@ public class Menu : MonoBehaviour
 
     private void SetSoundEffectsVolume(float value)
     {
+        // ENEMIES
+        SetVolumeToObjsByTag("Enemy", value);
+
+        // ENEMIE PATROLS
+        SetVolumeToObjsByTag("EnemyPatrol", value);
+
+        // Turrets
+        SetVolumeToObjsByTag("Turret", value);
+
+        // Player
+        SetVolumeToObjsByTag("Player", value);
+
+        // Boss
+        SetVolumeToObjsByTag("Boss", value);
+
+        // Buttons
+        SetVolumeToObjsByTag("Button", value);
+
+        soundController.EffectsVolume = value;
+
         Debug.Log("Sound Effects Volume Changed!");
+    }
+
+    private void SetVolumeToObjsByTag(string tag, float val)
+    {
+        GameObject[] soundingGameObjects = GameObject.FindGameObjectsWithTag(tag);
+        if (soundingGameObjects != null)
+        {
+            for (int i = 0; i < soundingGameObjects.Length; i++)
+            {
+                soundingGameObjects[i].GetComponent<AudioSource>().volume = val;
+            }
+        }
     }
 
     private void SetMusicEffectsVolume(float value)

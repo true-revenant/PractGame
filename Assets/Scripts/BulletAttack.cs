@@ -9,6 +9,13 @@ public class BulletAttack : MonoBehaviour, IAttack
     protected DamagingObjectsPool bulletPool;
     protected Transform bulletPoolTransform;
 
+    private BulletAudioSourceController bulletAudioSourceController;
+
+    private void Awake()
+    {
+        bulletAudioSourceController = GetComponent<BulletAudioSourceController>();
+    }
+
     private void Start()
     {
         InitBulletPool();
@@ -22,6 +29,9 @@ public class BulletAttack : MonoBehaviour, IAttack
 
     public void CreateBullet()
     {
+        if (bulletAudioSourceController != null)
+            bulletAudioSourceController.PlayAudio();
+
         var bullet = bulletPool.GetDamagingObject(DamagingObjectType.Bullet);
         bullet.transform.position = bulletStartPos.position;
         bullet.transform.rotation = Quaternion.identity;

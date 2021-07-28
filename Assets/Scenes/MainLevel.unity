@@ -916,6 +916,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuPanel: {fileID: 1819308426}
+  settingsPanel: {fileID: 698120780}
 --- !u!1 &172790238
 GameObject:
   m_ObjectHideFlags: 0
@@ -2428,7 +2429,7 @@ PrefabInstance:
     - target: {fileID: 3189833690497778743, guid: fae89d9f36169ca40938c9519af2f0d8,
         type: 3}
       propertyPath: m_Name
-      value: Turrel (3)
+      value: Turrel
       objectReference: {fileID: 0}
     - target: {fileID: 3189833690497778743, guid: fae89d9f36169ca40938c9519af2f0d8,
         type: 3}
@@ -11347,7 +11348,7 @@ PrefabInstance:
     - target: {fileID: 3189833690497778743, guid: fae89d9f36169ca40938c9519af2f0d8,
         type: 3}
       propertyPath: m_Name
-      value: Turrel (2)
+      value: Turrel2
       objectReference: {fileID: 0}
     - target: {fileID: 3189833690497778743, guid: fae89d9f36169ca40938c9519af2f0d8,
         type: 3}
@@ -28969,7 +28970,7 @@ PrefabInstance:
     - target: {fileID: 3189833690497778743, guid: fae89d9f36169ca40938c9519af2f0d8,
         type: 3}
       propertyPath: m_Name
-      value: Turrel (1)
+      value: Turrel1
       objectReference: {fileID: 0}
     - target: {fileID: 3189833690497778743, guid: fae89d9f36169ca40938c9519af2f0d8,
         type: 3}

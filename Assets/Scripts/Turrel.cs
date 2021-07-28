@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Timers;
 
-public class Turrel : BulletAttack, ILiveObj, ITakeExplosionDamage
+public class Turrel : MonoBehaviour, ILiveObj, ITakeExplosionDamage
 {
     private float _rotationDirectionSign = 1;
+    private BulletAttack bulletAttack;
+    private TurretAudioSourceController turretAudioSourceController;
 
     [SerializeField] private Transform _playerPos;
     [SerializeField] private float _minDistance = 3f;
@@ -20,11 +22,8 @@ public class Turrel : BulletAttack, ILiveObj, ITakeExplosionDamage
         maxHP = 100;
         currentHP = maxHP;
         IsAlive = true;
-    }
-
-    private void Start()
-    {
-        InitBulletPool();
+        bulletAttack = GetComponent<BulletAttack>();
+        turretAudioSourceController = GetComponent<TurretAudioSourceController>();
     }
 
     // Update is called once per frame
@@ -42,8 +41,10 @@ public class Turrel : BulletAttack, ILiveObj, ITakeExplosionDamage
                 // Если туррель смотрит на игрока, то стреляет
                 if (Quaternion.Angle(transform.rotation, newRotation) == 0)
                 {
-                    CreateBullet();
+                    bulletAttack.CreateBullet();
+                    turretAudioSourceController.StartAudio();
                 }
+                else turretAudioSourceController.StopAudio();
 
                 transform.rotation = newRotation;
             }

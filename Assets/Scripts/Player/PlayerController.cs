@@ -5,13 +5,12 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour, ILiveObj, ITakeDamage
 {
     [SerializeField] private HealthLine healthLine;
-    [SerializeField] private AudioClip[] audioClips;
-    
+
     private Animator animator;
     private NotificationManager notificationManager;
 
-    public bool blueKeyCollected { get; set; } = false;
-    public bool orangeKeyCollected { get; set; } = false;
+    public bool blueKeyCollected { get; set; } = true;
+    public bool orangeKeyCollected { get; set; } = true;
     public int maxHP { get; set; }
     public int currentHP { get; set; }
     public bool IsAlive { get; set; }
@@ -51,10 +50,5 @@ public class PlayerController : MonoBehaviour, ILiveObj, ITakeDamage
         //gameObject.GetComponent<CapsuleCollider>().enabled = false;
         yield return new WaitForSeconds(2);
         notificationManager.ShowNotification("бШ сахрш!");
-    }
-
-    public AudioClip[] GetSounds()
-    {
-        return audioClips;
     }
 }

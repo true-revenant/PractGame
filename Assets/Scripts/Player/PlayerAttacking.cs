@@ -12,6 +12,7 @@ public class PlayerAttacking : BombAttack
     private Animator animator;
     private AudioSource audioSource;
 
+    [SerializeField] private AudioClip shootSound;
     [SerializeField] private Transform _attackStartPos;
 
     private void Awake()
@@ -69,7 +70,7 @@ public class PlayerAttacking : BombAttack
 
         }
 
-        audioSource.PlayOneShot(playerController.GetSounds()[0]);
+        audioSource.PlayOneShot(shootSound);
     }
 
     //public void CreateBullet()
