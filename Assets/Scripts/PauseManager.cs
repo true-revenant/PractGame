@@ -6,12 +6,13 @@ public class PauseManager : MonoBehaviour
 {
     private bool isPaused = false;
     [SerializeField] private GameObject pauseMenuPanel;
+    [SerializeField] private GameObject settingsPanel;
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (isPaused) Unpause();
+            if (isPaused && !settingsPanel.activeSelf) Unpause();
             else Pause();
         }
     }

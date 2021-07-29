@@ -10,6 +10,8 @@ TagManager:
   - EnemyPatrol
   - Floor
   - Items
+  - reverbZone
+  - Button
   layers:
   - Default
   - TransparentFX

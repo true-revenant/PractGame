@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public sealed class Bullet : MonoBehaviour
 {
-    //[SerializeField] private float _speed = 4f;
+    private Transform bulletPoolTransform;
 
-    public void Init() {}
-
-    // Start is called before the first frame update
-    private void Start() {}
+    private void Start()
+    {
+        bulletPoolTransform = GameObject.Find("DamagingObjectsPool").transform;
+    }
 
     // Update is called once per frame
     private void Update()
@@ -21,9 +21,25 @@ public class Bullet : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")) other.GetComponent<LiveObj>().TakeDamage(5);
+        if (!other.CompareTag("reverbZone"))
+        {
+            if (other.CompareTag("Player"))
+                other.GetComponent<ITakeDamage>().TakeDamage(5);
+            
+            ReturnToPool();
+        }
+    }
 
-        Destroy(gameObject);
-        //if (!other.CompareTag("Player") && !other.CompareTag("Turret")) Destroy(gameObject);
+    private void ReturnToPool()
+    {
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
+        gameObject.SetActive(false);
+        transform.SetParent(bulletPoolTransform);
+
+        //if (!RotPool)
+        //{
+        //    Destroy(gameObject);
+        //}
     }
 }

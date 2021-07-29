@@ -3,22 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Timers;
 
-public class Turrel : LiveObj
+public class Turrel : MonoBehaviour, ILiveObj, ITakeExplosionDamage
 {
     private float _rotationDirectionSign = 1;
+    private BulletAttack bulletAttack;
+    private TurretAudioSourceController turretAudioSourceController;
+    private PlayerController playerController;
 
     [SerializeField] private Transform _playerPos;
     [SerializeField] private float _minDistance = 3f;
     [SerializeField] private float _rotationSpeed = 3f;
 
-    public GameObject _bulletPref;
-    public Transform _bulletStartPos;
+    public int maxHP { get; set; }
+    public int currentHP { get; set; }
+    public bool IsAlive { get; set; }
 
     private void Awake()
     {
         maxHP = 100;
         currentHP = maxHP;
         IsAlive = true;
+        bulletAttack = GetComponent<BulletAttack>();
+        turretAudioSourceController = GetComponent<TurretAudioSourceController>();
+
+        playerController = _playerPos.gameObject.GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -26,7 +34,7 @@ public class Turrel : LiveObj
     {
         if (IsAlive)
         {
-            if (Vector3.Distance(transform.position, _playerPos.position) < _minDistance)
+            if (Vector3.Distance(transform.position, _playerPos.position) < _minDistance && playerController.IsAlive)
             {
                 Vector3 relative = _playerPos.position - transform.position;
 
@@ -36,8 +44,10 @@ public class Turrel : LiveObj
                 // Если туррель смотрит на игрока, то стреляет
                 if (Quaternion.Angle(transform.rotation, newRotation) == 0)
                 {
-                    CreateBullet();
+                    bulletAttack.CreateBullet();
+                    turretAudioSourceController.StartAudio();
                 }
+                else turretAudioSourceController.StopAudio();
 
                 transform.rotation = newRotation;
             }
@@ -54,18 +64,7 @@ public class Turrel : LiveObj
         transform.Rotate(Vector3.up * Time.deltaTime * 25 * _rotationDirectionSign);
     }
 
-    private void CreateBullet()
-    {
-        //Instantiate(_bulletPref, _bulletStartPos.position, transform.rotation);
-        var rBody = Instantiate(_bulletPref, _bulletStartPos.position, Quaternion.identity).GetComponent<Rigidbody>();
-        rBody.velocity = _bulletStartPos.forward * 15f;
-    }
-
-    public override void TakeDamage(int damage)
-    {
-    }
-
-    public override void DeadByExplosion()
+    public void DeadByExplosion()
     {
         StartCoroutine(DeathAnimation());
     }
