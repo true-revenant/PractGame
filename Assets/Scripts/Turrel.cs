@@ -8,6 +8,7 @@ public class Turrel : MonoBehaviour, ILiveObj, ITakeExplosionDamage
     private float _rotationDirectionSign = 1;
     private BulletAttack bulletAttack;
     private TurretAudioSourceController turretAudioSourceController;
+    private PlayerController playerController;
 
     [SerializeField] private Transform _playerPos;
     [SerializeField] private float _minDistance = 3f;
@@ -24,6 +25,8 @@ public class Turrel : MonoBehaviour, ILiveObj, ITakeExplosionDamage
         IsAlive = true;
         bulletAttack = GetComponent<BulletAttack>();
         turretAudioSourceController = GetComponent<TurretAudioSourceController>();
+
+        playerController = _playerPos.gameObject.GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -31,7 +34,7 @@ public class Turrel : MonoBehaviour, ILiveObj, ITakeExplosionDamage
     {
         if (IsAlive)
         {
-            if (Vector3.Distance(transform.position, _playerPos.position) < _minDistance)
+            if (Vector3.Distance(transform.position, _playerPos.position) < _minDistance && playerController.IsAlive)
             {
                 Vector3 relative = _playerPos.position - transform.position;
 

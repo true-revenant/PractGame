@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public sealed class DamagingObjectsPool : MonoBehaviour
+public sealed class DamagingObjectsPool
 {
     private readonly Dictionary<string, HashSet<GameObject>> _damagingObjectsPool;
 

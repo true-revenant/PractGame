@@ -29,17 +29,20 @@ public class BulletAttack : MonoBehaviour, IAttack
 
     public void CreateBullet()
     {
-        if (bulletAudioSourceController != null)
-            bulletAudioSourceController.PlayAudio();
+        if (Time.timeScale == 1)
+        {
+            if (bulletAudioSourceController != null)
+                bulletAudioSourceController.PlayAudio();
 
-        var bullet = bulletPool.GetDamagingObject(DamagingObjectType.Bullet);
-        bullet.transform.position = bulletStartPos.position;
-        bullet.transform.rotation = Quaternion.identity;
-        var rBody = bullet.GetComponent<Rigidbody>();
+            var bullet = bulletPool.GetDamagingObject(DamagingObjectType.Bullet);
+            bullet.transform.position = bulletStartPos.position;
+            bullet.transform.rotation = Quaternion.identity;
+            var rBody = bullet.GetComponent<Rigidbody>();
 
-        rBody.velocity = bulletStartPos.forward * 15f;
+            rBody.velocity = bulletStartPos.forward * 15f;
 
-        //Debug.Log($"BULLETS IN POOL = {bulletPool.BulletsCapacity}");
-        //Debug.Log($"BULLET CHILDS IN POOL TRANSFORM = {bulletPoolTransform.childCount}");
+            //Debug.Log($"BULLETS IN POOL = {bulletPool.BulletsCapacity}");
+            //Debug.Log($"BULLET CHILDS IN POOL TRANSFORM = {bulletPoolTransform.childCount}");
+        }
     }
 }
