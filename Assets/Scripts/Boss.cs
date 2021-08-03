@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boss : LiveObj
+public class Boss : LiveObj, ITakeDamage, IBombAttack
 {
     [SerializeField] private float visionRadius;
     [SerializeField] private float attackDistance;
@@ -63,9 +63,8 @@ public class Boss : LiveObj
             }
         }
     }
-    public override void DeadByExplosion() { }
 
-    public override void TakeDamage(int damage) 
+    public void TakeDamage(int damage) 
     {
         Debug.Log($"{name} : OUCH!!!");
         currentHP -= damage;
@@ -78,7 +77,7 @@ public class Boss : LiveObj
         }
     }
 
-    private void CreateBomb()
+    public void CreateBomb()
     {
         var rBody = Instantiate(bombPref, bombStartPos.position, transform.rotation).GetComponent<Rigidbody>();
         rBody.AddForce(transform.forward * force, ForceMode.Impulse);
