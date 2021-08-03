@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthLine : MonoBehaviour
+internal sealed class HealthLine : MonoBehaviour
 {
     private Image healthLine;
     private void Awake()

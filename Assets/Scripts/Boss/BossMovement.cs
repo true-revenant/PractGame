@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossMovement : MonoBehaviour
+internal sealed class BossMovement : MonoBehaviour
 {
     [SerializeField] private float visionRadius;
     [SerializeField] private float attackDistance;

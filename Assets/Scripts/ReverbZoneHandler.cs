@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ReverbZoneHandler : MonoBehaviour
+internal sealed class ReverbZoneHandler : MonoBehaviour
 {
     private AudioReverbZone reverbZone;
 

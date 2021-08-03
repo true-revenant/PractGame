@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthBox : MonoBehaviour
+internal sealed class HealthBox : MonoBehaviour
 {
     // Update is called once per frame
     void Update()

@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerJumping : MonoBehaviour
+internal sealed class PlayerJumping : MonoBehaviour
 {
     // JUMP
     public float jumpHeightK;
-    //private bool isGround = true;
     private Animator animator;
     private PlayerController playerController;
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour, ILiveObj, ITakeDamage
+internal sealed class PlayerController : MonoBehaviour, ILiveObj, ITakeDamage
 {
     [SerializeField] private HealthLine healthLine;
 
@@ -10,8 +10,8 @@ public class PlayerController : MonoBehaviour, ILiveObj, ITakeDamage
     private NotificationManager notificationManager;
     private AudioSource backgroundMusicAudioSource;
 
-    public bool blueKeyCollected { get; set; } = true;
-    public bool orangeKeyCollected { get; set; } = true;
+    public bool blueKeyCollected { get; set; } = false;
+    public bool orangeKeyCollected { get; set; } = false;
     public int maxHP { get; set; }
     public int currentHP { get; set; }
     public bool IsAlive { get; set; }
@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour, ILiveObj, ITakeDamage
         notificationManager = GetComponent<NotificationManager>();
         Cursor.lockState = CursorLockMode.Locked;
 
-        backgroundMusicAudioSource = GameObject.Find("BackgroundMusic").GetComponent<AudioSource>();
+        backgroundMusicAudioSource = GameObject.FindGameObjectWithTag("BackgroundMusic").GetComponent<AudioSource>();
     }
 
     private void FixedUpdate()

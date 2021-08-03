@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BombAttack : MonoBehaviour, IBombAttack
+internal class BombAttack : MonoBehaviour, IBombAttack
 {
     //[SerializeField] private GameObject bombPref;
     [SerializeField] protected Transform bombStartPos;

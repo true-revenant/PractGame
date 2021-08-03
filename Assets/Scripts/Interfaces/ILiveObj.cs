@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ILiveObj
+internal interface ILiveObj
 {
     public int maxHP { get; set; }
     public int currentHP { get; set; }

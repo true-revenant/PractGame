@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NotificationManager : MonoBehaviour
+internal sealed class NotificationManager : MonoBehaviour
 {
     [SerializeField] private Text notificationTextField;
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttacking : BombAttack
+internal sealed class PlayerAttacking : BombAttack
 {
     // ATTACK
     private PlayerController playerController;   
@@ -11,7 +11,7 @@ public class PlayerAttacking : BombAttack
     private float reloadTime = 0.5f;
     private Animator animator;
     private AudioSource audioSource;
-
+    
     [SerializeField] private AudioClip shootSound;
     [SerializeField] private Transform _attackStartPos;
 
@@ -47,18 +47,10 @@ public class PlayerAttacking : BombAttack
         }
     }
 
-    //public void CreateBomb()
-    //{
-    //    var rBody = Instantiate(_bombPref, _attackStartPos.position, transform.rotation).GetComponent<Rigidbody>();
-    //    rBody.AddForce(transform.forward * _force, ForceMode.Impulse);
-
-    //    //bomb.GetComponent<Rigidbody>().AddTorque(10f * Vector3.forward);
-    //}
-
     public void CreateRaycastBullet()
     {
         RaycastHit hit;
-        var raycast = Physics.Raycast(_attackStartPos.position, transform.forward, out hit, Mathf.Infinity);
+        var raycast = Physics.Raycast(_attackStartPos.position, transform.forward, out hit, 10f);
 
         if (raycast)
         {
@@ -72,16 +64,6 @@ public class PlayerAttacking : BombAttack
 
         audioSource.PlayOneShot(shootSound);
     }
-
-    //public void CreateBullet()
-    //{
-    //    Debug.Log("Create Bullet!");
-    //    Instantiate(_bulletPref, _bulletStartPos.position, transform.rotation)
-
-    //    var rBody = Instantiate(_bulletPref, _bulletStartPos.position, Quaternion.identity).GetComponent<Rigidbody>();
-    //    rBody.velocity = _bulletStartPos.forward * 25f;
-    //}
-
 
     private void WeaponReload()
     {

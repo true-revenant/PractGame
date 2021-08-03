@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public sealed class Bullet : MonoBehaviour
+internal sealed class Bullet : MonoBehaviour
 {
     private Transform bulletPoolTransform;
 
     private void Start()
     {
-        bulletPoolTransform = GameObject.Find("DamagingObjectsPool").transform;
+        bulletPoolTransform = GameObject.FindGameObjectWithTag("Pool").transform;
     }
 
     // Update is called once per frame

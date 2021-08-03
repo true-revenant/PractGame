@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bomb : MonoBehaviour
+internal sealed class Bomb : MonoBehaviour
 {
     [SerializeField] private GameObject explosionObjectPref;
     private Transform bombPoolTransform;
@@ -10,9 +10,9 @@ public class Bomb : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        bombPoolTransform = GameObject.Find("DamagingObjectsPool").transform;
-        Invoke("Explosion", 3f);
-        //StartCoroutine(ExplosionTask());
+        bombPoolTransform = GameObject.FindGameObjectWithTag("Pool").transform;
+        //Invoke("Explosion", 3f);
+        StartCoroutine(ExplosionTask());
     }
 
     IEnumerator ExplosionTask()
@@ -27,25 +27,31 @@ public class Bomb : MonoBehaviour
         var collisions = Physics.OverlapSphere(transform.position, 3f);
         foreach(var col in collisions)
         {
-            if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "EnemyPatrol")
+            if (col.CompareTag("Enemy") || col.CompareTag("EnemyPatrol"))
             {
                 col.GetComponent<Rigidbody>().isKinematic = false;
                 col.GetComponent<Rigidbody>().freezeRotation = false;
                 col.GetComponent<Rigidbody>().AddExplosionForce(600f, transform.position, 5f, 600f, ForceMode.Impulse);
                 col.GetComponent<ITakeExplosionDamage>().DeadByExplosion();
             }
-            if (col.gameObject.tag == "Turret")
+            else if (col.TryGetComponent<ITakeDamage>(out ITakeDamage component))
+            {
+                component.TakeDamage(5);
+                //col.GetComponent<ITakeDamage>().TakeDamage(10);
+            }          
+            else if (col.CompareTag("Turret"))
             {
                 col.GetComponent<ITakeExplosionDamage>().DeadByExplosion();
             }
-            if (col.gameObject.tag == "Boss")
-            {
-                col.GetComponent<ITakeDamage>().TakeDamage(5);
-            }
-            if (col.gameObject.tag == "Player")
-            {
-                col.GetComponent<ITakeDamage>().TakeDamage(10);
-            }
+
+            //if (col.gameObject.tag == "Boss")
+            //{
+            //    col.GetComponent<ITakeDamage>().TakeDamage(5);
+            //}
+            //if (col.gameObject.tag == "Player")
+            //{
+            //    col.GetComponent<ITakeDamage>().TakeDamage(10);
+            //}
         }
 
         Instantiate(explosionObjectPref, transform.position, transform.rotation);

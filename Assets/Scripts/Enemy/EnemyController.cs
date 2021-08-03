@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour, ILiveObj, ITakeDamage, ITakeExplosionDamage
+internal sealed class EnemyController : MonoBehaviour, ILiveObj, ITakeDamage, ITakeExplosionDamage
 {
     private Animator animator;
     private ParticleSystem _particleSystem;

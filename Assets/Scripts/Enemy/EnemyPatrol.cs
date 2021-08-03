@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyPatrol : MonoBehaviour
+internal sealed class EnemyPatrol : MonoBehaviour
 {
     [SerializeField] private Transform[] _waypoints;
 

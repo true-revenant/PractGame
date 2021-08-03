@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Door : MonoBehaviour
+internal sealed class Door : MonoBehaviour
 {
     public bool doorIsOpening = false;
 

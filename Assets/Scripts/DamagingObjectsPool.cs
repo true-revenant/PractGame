@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public sealed class DamagingObjectsPool
+internal sealed class DamagingObjectsPool
 {
     private readonly Dictionary<string, HashSet<GameObject>> _damagingObjectsPool;
-
     private readonly int _capacity;
-
-    private Transform poolTransform;
-
+    private Transform _poolTransform;
+    
     public int BulletsCapacity 
     {
         get { return GetDamagingObjectsList(DamagingObjectType.Bullet).Count; }
     }
+
     public int BombsCapacity
     {
         get { return GetDamagingObjectsList(DamagingObjectType.Bomb).Count; }
@@ -26,10 +25,11 @@ public sealed class DamagingObjectsPool
 
         _capacity = capacityPool;
 
-        if (!poolTransform)
+        if (!_poolTransform)
         {
-            poolTransform = new GameObject("DamagingObjectsPool").transform;
-            poolTransform.position = Vector3.down;
+            _poolTransform = new GameObject("DamagingObjectsPool").transform;
+            _poolTransform.gameObject.tag = "Pool";
+            _poolTransform.position = Vector3.down;
         }
     }
 
@@ -38,7 +38,6 @@ public sealed class DamagingObjectsPool
         var instDamagingObj = GameObject.Instantiate(_pref);
         PutToPool(instDamagingObj.transform);
         GetDamagingObjectsList(damagingObjType).Add(instDamagingObj);
-
     }
 
     private HashSet<GameObject> GetDamagingObjectsList(DamagingObjectType damagingObjectType)
@@ -53,7 +52,36 @@ public sealed class DamagingObjectsPool
 
         if (damagingObj == null)
         {
-            var damagingObjPref = (GameObject)Resources.Load("Prefabs/" + damagingObjectType.ToString());
+            GameObject damagingObjPref = null;
+            if (damagingObjectType == DamagingObjectType.Bullet)
+            {
+                ///
+                // BUILDER
+                ///
+
+                //var bulletBuilder = new BulletBuilder();
+                //damagingObjPref = bulletBuilder.Visual
+                //                        .AddName("Bullet")
+                //                        .AddRenderer(Resources.Load<Material>("Materials/PlayerMat"))
+                //                        .Physics.AddRigidBody().AddScriptBullet().AddSphereCollider();
+
+                ///
+                // FLUENT BUILDER
+                ///
+
+                damagingObjPref = GameObject.CreatePrimitive(PrimitiveType.Sphere)
+                                        .SetBulletScale(0.1f)
+                                        .AddName("Bullet")
+                                        .AddBulletScript()
+                                        .AddMeshRenderer(Resources.Load<Material>("Materials/PlayerMat"))
+                                        .AddRigidBody()
+                                        .AddSphereCollider();
+
+            }
+            else if (damagingObjectType == DamagingObjectType.Bomb)
+            {
+                damagingObjPref = (GameObject)Resources.Load("Prefabs/" + damagingObjectType.ToString());
+            }
 
             for (int i = 0; i < _capacity; i++)
             {
@@ -75,7 +103,7 @@ public sealed class DamagingObjectsPool
 
     public void RemovePool()
     {
-        Object.Destroy(poolTransform.gameObject);
+        Object.Destroy(_poolTransform.gameObject);
     }
 
     private void PutToPool(Transform transform)
@@ -83,7 +111,7 @@ public sealed class DamagingObjectsPool
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
         transform.gameObject.SetActive(false);
-        transform.SetParent(poolTransform);
+        transform.SetParent(_poolTransform);
     }
 }
 

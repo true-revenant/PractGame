@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainHallController : MonoBehaviour
+internal sealed class MainHallController : MonoBehaviour
 {
     [SerializeField] private DoorButton leftButton;
     [SerializeField] private DoorButton rightButton;

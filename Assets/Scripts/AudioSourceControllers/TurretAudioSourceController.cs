@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurretAudioSourceController : AudioSourceController
+internal sealed class TurretAudioSourceController : AudioSourceController
 {
     [SerializeField] private AudioClip shootSound;
 

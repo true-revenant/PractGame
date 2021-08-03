@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorButton : MonoBehaviour
+internal sealed class DoorButton : MonoBehaviour
 {
     public ButtonType buttonType;
 

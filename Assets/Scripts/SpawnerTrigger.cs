@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnerTrigger : MonoBehaviour
+internal sealed class SpawnerTrigger : MonoBehaviour
 {
     public GameObject[] spawners;
 

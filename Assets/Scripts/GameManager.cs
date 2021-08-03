@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+internal sealed class GameManager : MonoBehaviour
 {
     public DamagingObjectsPool BulletPool { get; private set; }
 
