@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossDoor : MonoBehaviour
+internal sealed class BossDoor : MonoBehaviour
 {
     public bool blueKeyIsInserted { get; set; }
     public bool orangeKeyIsInserted { get; set; }

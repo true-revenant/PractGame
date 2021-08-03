@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBehave : MonoBehaviour
+internal sealed class EnemyBehave : MonoBehaviour
 {
     private Animator animator;
     private EnemyController enemyController;

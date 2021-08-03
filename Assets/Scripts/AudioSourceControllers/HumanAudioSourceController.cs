@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HumanAudioSourceController : AudioSourceController
+internal sealed class HumanAudioSourceController : AudioSourceController
 {
     [SerializeField] AudioClip[] stepsSounds;
     [SerializeField] AudioClip jumpSound;

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossTrigger : MonoBehaviour
+internal sealed class BossTrigger : MonoBehaviour
 {
     [SerializeField] private Door bossDoor;
     [SerializeField] private GameObject healthLineObj;

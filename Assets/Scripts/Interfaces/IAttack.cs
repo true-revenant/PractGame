@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IAttack
+internal interface IAttack
 {
     public abstract void CreateBullet();
 }

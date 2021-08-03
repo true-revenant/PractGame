@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KeyHole : MonoBehaviour
+internal sealed class KeyHole : MonoBehaviour
 {
     [SerializeField] private KeyHoleType KHtype;
     [SerializeField] private GameObject keyPrefab;

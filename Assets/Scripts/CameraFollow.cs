@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraFollow : MonoBehaviour
+internal sealed class CameraFollow : MonoBehaviour
 {
     public Transform target;
     public Transform cameraRotationCenter;

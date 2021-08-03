@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SideHallController : MonoBehaviour
+internal sealed class SideHallController : MonoBehaviour
 {
     [SerializeField] private Door door;
     [SerializeField] private GameObject keyKeeper;

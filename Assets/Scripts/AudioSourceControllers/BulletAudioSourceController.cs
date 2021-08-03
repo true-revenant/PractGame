@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletAudioSourceController : AudioSourceController
+internal sealed class BulletAudioSourceController : AudioSourceController
 {
     [SerializeField] private AudioClip shootSound;
 

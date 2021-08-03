@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KeyKeeper : MonoBehaviour
+internal sealed class KeyKeeper : MonoBehaviour
 {
     [SerializeField] private GameObject keyPrefab;
     private Vector3 keyPosition;

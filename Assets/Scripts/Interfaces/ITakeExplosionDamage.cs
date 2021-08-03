@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ITakeExplosionDamage
+internal interface ITakeExplosionDamage
 {
     public void DeadByExplosion();
 }

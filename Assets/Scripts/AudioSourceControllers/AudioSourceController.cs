@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioSourceController : MonoBehaviour
+internal class AudioSourceController : MonoBehaviour
 {
     protected AudioSource audioSource;
     protected SoundController soundController;
@@ -10,7 +10,7 @@ public class AudioSourceController : MonoBehaviour
     protected void Init()
     {
         audioSource = GetComponent<AudioSource>();
-        soundController = GameObject.Find("SoundManager").GetComponent<SoundController>();
+        soundController = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundController>();
         audioSource.volume = soundController.EffectsVolume;
     }
 }

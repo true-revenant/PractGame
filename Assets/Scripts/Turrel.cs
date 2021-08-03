@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Timers;
 
-public class Turrel : MonoBehaviour, ILiveObj, ITakeExplosionDamage
+internal sealed class Turrel : MonoBehaviour, ILiveObj, ITakeExplosionDamage
 {
     private float _rotationDirectionSign = 1;
     private BulletAttack bulletAttack;
